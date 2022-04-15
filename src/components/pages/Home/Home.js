@@ -1,4 +1,5 @@
 import React from 'react';
+import Menu from '../../part-components/Menu/Menu';
 import './Home.css'
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <Menu></Menu>
         </div>
     );
 };

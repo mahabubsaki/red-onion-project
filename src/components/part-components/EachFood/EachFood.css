@@ -1,0 +1,10 @@
+#singleCard {
+  box-shadow: -5px -5px 5px gray;
+  cursor: pointer;
+}
+#card-photo {
+  transition: all 0.5s linear;
+}
+#card-photo:hover {
+  transform: scale(1.1);
+}
