@@ -8,6 +8,7 @@ import Lunch from './components/part-components/Lunch/Lunch';
 import Dinner from './components/part-components/Dinner/Dinner';
 import React, { createContext } from 'react';
 import useFoods from './components/hooks/useFoods';
+import './App.css'
 import SingleFood from './components/pages/SingleFood/SingleFood';
 export const ApiContext = createContext()
 
@@ -15,7 +16,7 @@ function App() {
   const foods = useFoods()
   return (
     <ApiContext.Provider value={{ foods }}>
-      <div className="w-100 overflow-hidden">
+      <div className="w-100 overflow-hidden App">
         <Header></Header>
         <Routes>
           <Route path='/' element={<Home></Home>}>
