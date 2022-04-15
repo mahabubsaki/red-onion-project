@@ -47,7 +47,7 @@ const Feedback = () => {
                                 <img src={icon3} alt="" />
                             </div>
                             <div>
-                                <p className="card-title">Fast Delivery</p>
+                                <p className="card-title">A good auto responder</p>
                                 <p className="card-description">
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quam reprehenderit labore, ut delectus voluptas laborum beatae quo sit aliquid molestiae atque magnam quod sunt consectetur sapiente debitis praesentium sed?
                                 </p>
@@ -69,7 +69,7 @@ const Feedback = () => {
                                 <img src={icon2} alt="" />
                             </div>
                             <div>
-                                <p className="card-title">Fast Delivery</p>
+                                <p className="card-title">Home Delivery</p>
                                 <p className="card-description">
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quam reprehenderit labore, ut delectus voluptas laborum beatae quo sit aliquid molestiae atque magnam quod sunt consectetur sapiente debitis praesentium sed?
                                 </p>

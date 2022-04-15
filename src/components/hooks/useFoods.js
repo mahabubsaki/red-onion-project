@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useEffect, useState } from "react"
 
 const useFoods = () => {
@@ -7,6 +8,9 @@ const useFoods = () => {
             .then(res => res.json())
             .then(data => setFoods(data))
     }, [])
+    if (foods.length > 0) {
+        localStorage.setItem('allFoods', JSON.stringify(foods))
+    }
     return foods
 }
 export default useFoods

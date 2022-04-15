@@ -1,0 +1,12 @@
+#single-food-quantity {
+  border: 1px solid rgb(194, 169, 169);
+  border-radius: 30px;
+}
+#single-food-quantity button {
+  background: white;
+  border: none;
+}
+#single-food-quantity span {
+  position: relative;
+  top: 3px;
+}

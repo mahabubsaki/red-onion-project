@@ -1,13 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ApiContext } from '../../../App';
 import EachFood from '../EachFood/EachFood';
 
 const BreakFast = () => {
-    const { foods } = useContext(ApiContext)
-    const breakFastFoods = foods.filter(food => food.category === 'BreakFast')
+    const [currentCategory, setCurrentCategory] = useState([])
+    useEffect(() => {
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => setCurrentCategory(data.filter(c => c.category === 'BreakFast')))
+    }, [])
     return (
         <div className="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1">
-            {breakFastFoods.map(food => <EachFood key={food.id} food={food}></EachFood>)}
+            {currentCategory.map(food => <EachFood key={food.id} food={food}></EachFood>)}
         </div>
     );
 };
