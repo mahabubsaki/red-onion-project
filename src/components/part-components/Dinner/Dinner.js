@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ApiContext } from '../../../App';
+import React, { useEffect, useState } from 'react';
 import EachFood from '../EachFood/EachFood';
 
 const Dinner = () => {
