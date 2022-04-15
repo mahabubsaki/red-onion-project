@@ -6,7 +6,7 @@ import Home from './components/pages/Home/Home';
 
 function App() {
   return (
-    <div>
+    <div className="w-100 overflow-hidden">
       <Header></Header>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>

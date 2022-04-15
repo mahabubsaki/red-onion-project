@@ -1,0 +1,14 @@
+.banner {
+    background-image: url('https://i.ibb.co/rfyw0c9/bannerbackground-1.jpg');
+    background-repeat: no-repeat;
+    height: 68vh;
+  }
+  #banner-search {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+  #button-addon2 {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
