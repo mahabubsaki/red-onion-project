@@ -1,12 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo from '../../../assets/logo.png'
-import { ShoppingCartIcon } from '@heroicons/react/solid'
+import { ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/solid'
 import { Link } from 'react-router-dom';
 import Cart from '../../part-components/Cart/Cart';
 import './Header.css'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
+import { signOut } from 'firebase/auth';
 
 const Header = ({ cart }) => {
+    const [user] = useAuthState(auth);
     let testCart;
     if (cart.length === 0) {
         const foods = JSON.parse(localStorage.getItem('allFoods'))
@@ -41,13 +45,23 @@ const Header = ({ cart }) => {
                                 className="ms-auto my-2 my-lg-0"
                             >
                                 <Nav.Link className="position-relative">
-                                    <ShoppingCartIcon style={{ height: '40px', position: 'relative', top: '6px' }} onClick={() => setCartOpen(!cartOpen)}></ShoppingCartIcon>
-                                    <span className="translate-middle badge rounded-pill bg-danger" id='cart-badge'>
+                                    <ShoppingCartIcon style={{ height: '40px' }} onClick={() => setCartOpen(!cartOpen)}></ShoppingCartIcon>
+                                    <span className="translate-middle badge rounded-pill bg-danger" id='cart-badge' style={{ position: 'relative', bottom: '6px' }}>
                                         {quantity}
                                     </span>
                                 </Nav.Link>
-                                <Nav.Link as={Link} to="/login"><button className='btn btn-info text-white rounded-pill'>Login</button></Nav.Link>
-                                <Nav.Link as={Link} to="/signup"><button className='btn btn-danger text-white  rounded-pill'>Sign Up</button></Nav.Link>
+                                {
+                                    user ?
+                                        <>
+                                            <Nav.Link><UserCircleIcon style={{ height: '40px' }}></UserCircleIcon></Nav.Link>
+                                            <Nav.Link><button className='btn btn-danger text-white rounded-pill' onClick={() => signOut(auth)}>Logout</button></Nav.Link>
+                                        </>
+                                        :
+                                        <>
+                                            <Nav.Link as={Link} to="/login"><button className='btn btn-info text-white rounded-pill'>Login</button></Nav.Link>
+                                            <Nav.Link as={Link} to="/signup"><button className='btn btn-warning text-white  rounded-pill'>Sign Up</button></Nav.Link>
+                                        </>
+                                }
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

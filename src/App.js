@@ -18,6 +18,8 @@ import Checkout from './components/pages/Checkout/Checkout';
 import setQuantity from './components/utilities/setQuantity';
 import Login from './components/pages/Login/Login';
 import SignUp from './components/pages/SignUp/SignUp';
+import RequireAuth from './components/part-components/RequireAuth';
+import { ToastContainer } from 'react-toastify';
 export const ApiContext = createContext()
 
 function App() {
@@ -75,6 +77,7 @@ function App() {
   return (
     <ApiContext.Provider value={{ foods, handleAddtoCart, cart, handleClearAll, deleteSingle, handleQuantity }}>
       <div className="w-100 overflow-hidden App">
+        <ToastContainer></ToastContainer>
         <Header cart={cart}></Header>
         <Routes>
           <Route path='/' element={<Home></Home>}>
@@ -90,7 +93,11 @@ function App() {
           <Route path='/breakfast/:id' element={<SingleFood></SingleFood>}></Route>
           <Route path='/lunch/:id' element={<SingleFood></SingleFood>}></Route>
           <Route path='/dinner/:id' element={<SingleFood></SingleFood>}></Route>
-          <Route path='/checkout' element={<Checkout></Checkout>}></Route>
+          <Route path='/checkout' element={
+            <RequireAuth>
+              <Checkout></Checkout>
+            </RequireAuth>
+          }></Route>
           <Route path='/login' element={<Login></Login>}></Route>
           <Route path='/signup' element={<SignUp></SignUp>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>
