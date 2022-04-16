@@ -1,0 +1,8 @@
+.side-container {
+  width: 50%;
+}
+@media only screen and (max-width: 768px) {
+  .side-container {
+    width: 75%;
+  }
+}

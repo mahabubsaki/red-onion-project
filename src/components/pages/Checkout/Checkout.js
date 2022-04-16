@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { ApiContext } from '../../../App';
+import './Checkout.css'
 import CheckoutList from '../../part-components/CheckoutList/CheckoutList';
 
 const Checkout = () => {
@@ -17,8 +18,8 @@ const Checkout = () => {
     let total = prices + tax
     const fee = prices * 0.075
     return (
-        <div className="h-auto w-100 d-flex align-items-center" style={{ marginTop: "80px" }}>
-            <div className="w-50">
+        <div className="h-auto w-100 d-flex align-items-center flex-column flex-md-row" style={{ marginTop: "80px" }}>
+            <div className="side-container">
                 <h3 className="text-center">Edit delivery address</h3>
                 <hr className="border border-3 border-dark w-75 d-block mx-auto" />
                 <form>
@@ -33,7 +34,7 @@ const Checkout = () => {
                     </div>
                 </form>
             </div>
-            <div className="w-50 d-flex justify-content-center">
+            <div className="d-flex justify-content-center side-container">
                 <div className="w-75 mx-auto">
                     <div>
                         <p>From <b>Hazi Nawab Ali Road</b></p>
@@ -59,6 +60,7 @@ const Checkout = () => {
                             <h5>${quantity >= 10 ? (Number(total.toFixed(2)) + 2).toFixed(2) : (Number(total.toFixed(2)) + Number(fee.toFixed(2))).toFixed(2)}</h5>
                         </div>
                     </div>
+                    <button className="w-75 d-block mx-auto btn btn-success">Place Order</button>
                 </div>
             </div>
         </div>

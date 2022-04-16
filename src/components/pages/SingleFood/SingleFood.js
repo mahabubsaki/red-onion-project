@@ -1,6 +1,6 @@
 import { MinusIcon, PlusIcon, ShoppingCartIcon } from '@heroicons/react/solid';
 import React, { useContext, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ApiContext } from '../../../App';
 import NotFound from '../NotFound/NotFound';
 import './SingleFood.css'
@@ -29,10 +29,10 @@ const SingleFood = () => {
     }
     const { name, description, prices, img, category } = loadingFood
     return (
-        <div className="h-auto">
+        <div className="h-auto" style={{ marginTop: "80px" }}>
             <h1 className="text-center">Category : {category}</h1>
-            <div className="d-flex align-items-center">
-                <div className="w-50 ps-4">
+            <div className="d-flex align-items-center flex-column-reverse flex-sm-row">
+                <div className="ps-4" id="content">
                     <h1 className="fw-bold">{name}</h1>
                     <p>{description}</p>
                     <div className="d-flex w-75 justify-content-between align-items-start flex-column flex-md-row">

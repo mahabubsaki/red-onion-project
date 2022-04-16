@@ -16,6 +16,8 @@ import deleteItem from './components/utilities/deleteItem';
 import NotFound from './components/pages/NotFound/NotFound';
 import Checkout from './components/pages/Checkout/Checkout';
 import setQuantity from './components/utilities/setQuantity';
+import Login from './components/pages/Login/Login';
+import SignUp from './components/pages/SignUp/SignUp';
 export const ApiContext = createContext()
 
 function App() {
@@ -89,6 +91,8 @@ function App() {
           <Route path='/lunch/:id' element={<SingleFood></SingleFood>}></Route>
           <Route path='/dinner/:id' element={<SingleFood></SingleFood>}></Route>
           <Route path='/checkout' element={<Checkout></Checkout>}></Route>
+          <Route path='/login' element={<Login></Login>}></Route>
+          <Route path='/signup' element={<SignUp></SignUp>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>
         </Routes>
         <Footer></Footer>

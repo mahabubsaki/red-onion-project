@@ -4,7 +4,7 @@ import { ApiContext } from '../../../App';
 
 const CheckoutList = ({ item }) => {
     const { img, prices, name, quantity } = item;
-    const { handleQuantity } = useContext(ApiContext)
+    const { handleQuantity, deleteSingle } = useContext(ApiContext)
     const [myQuantity, setMyQuantity] = useState(quantity)
     const decrease = (item) => {
         if (myQuantity !== 1) {
@@ -25,6 +25,7 @@ const CheckoutList = ({ item }) => {
             <div className="text-center">
                 <h6>{name}</h6>
                 <h4 className="text-warning fw-bolder"><b>${prices}</b></h4>
+                <button className="btn btn-danger" onClick={() => deleteSingle(item)}>Delete</button>
             </div>
             <div className="d-flex flex-column align-items-center  fs-2 p-2" id='single-food-quantity'>
                 <button className="mb-1 bg-light" onClick={() => increase(item)}>
