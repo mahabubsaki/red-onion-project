@@ -45,7 +45,7 @@ const Header = ({ cart }) => {
                                 className="ms-auto my-2 my-lg-0"
                             >
                                 <Nav.Link className="position-relative">
-                                    <ShoppingCartIcon style={{ height: '32px', position: 'relative', top: '6px' }} onClick={() => setCartOpen(!cartOpen)}></ShoppingCartIcon>
+                                    <ShoppingCartIcon style={{ height: '40px', position: 'relative', top: '6px' }} onClick={() => setCartOpen(!cartOpen)}></ShoppingCartIcon>
                                     <span className="translate-middle badge rounded-pill bg-danger" id='cart-badge'>
                                         {quantity}
                                     </span>
@@ -56,8 +56,8 @@ const Header = ({ cart }) => {
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
-                <div className="position-absolute" style={{ right: cartOpen ? "0px" : "-2000px", transition: "all 1s linear", width: "50%", }}>
-                    <Cart cart={testCart} totalCost={totalCost}></Cart>
+                <div className="position-absolute" id="cart-container" style={{ right: cartOpen ? "0px" : "-1400px", transition: "all 0.5s ease-in-out" }}>
+                    <Cart cart={testCart} totalCost={totalCost.toFixed(2)}></Cart>
                 </div>
             </div>
         </div>

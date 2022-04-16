@@ -12,11 +12,34 @@ import './App.css'
 import SingleFood from './components/pages/SingleFood/SingleFood';
 import useCart from './components/hooks/useCart';
 import addToDb from './components/utilities/addToDb';
+import deleteItem from './components/utilities/deleteItem';
 export const ApiContext = createContext()
 
 function App() {
   const [foods,] = useFoods()
   const [cart, setCart] = useCart(foods)
+  const handleClearAll = () => {
+    localStorage.removeItem('cart')
+    setCart([])
+  }
+  const deleteSingle = (item) => {
+    console.log(item)
+    deleteItem(item)
+    const storedCart = []
+    const localStorageObject = JSON.parse(localStorage.getItem('cart'))
+    const allFoods = JSON.parse(localStorage.getItem('allFoods'))
+    for (const id in localStorageObject) {
+      const findById = allFoods.find(food => food.id === id)
+      if (findById) {
+        findById.quantity = localStorageObject[id]
+        storedCart.push(findById)
+      }
+    }
+    console.log(storedCart);
+    const currentCart = storedCart.filter(food => food.id !== item.id)
+    console.log(currentCart);
+    setCart(currentCart)
+  }
   const handleAddtoCart = (id, quantity) => {
     addToDb(id, quantity)
     const storedCart = []
@@ -31,7 +54,7 @@ function App() {
     setCart(storedCart)
   }
   return (
-    <ApiContext.Provider value={{ foods, handleAddtoCart, cart }}>
+    <ApiContext.Provider value={{ foods, handleAddtoCart, cart, handleClearAll, deleteSingle }}>
       <div className="w-100 overflow-hidden App">
         <Header cart={cart}></Header>
         <Routes>

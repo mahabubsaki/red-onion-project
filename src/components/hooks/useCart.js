@@ -14,7 +14,6 @@ const useCart = (foods) => {
         }
         setCart(storedCart)
     }, [foods])
-    console.log(cart);
     return [cart, setCart]
 }
 export default useCart
