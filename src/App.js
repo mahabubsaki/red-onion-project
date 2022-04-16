@@ -6,18 +6,34 @@ import Home from './components/pages/Home/Home';
 import BreakFast from './components/part-components/BreakFast/BreakFast';
 import Lunch from './components/part-components/Lunch/Lunch';
 import Dinner from './components/part-components/Dinner/Dinner';
-import React, { createContext } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import useFoods from './components/hooks/useFoods';
 import './App.css'
 import SingleFood from './components/pages/SingleFood/SingleFood';
+import useCart from './components/hooks/useCart';
+import addToDb from './components/utilities/addToDb';
 export const ApiContext = createContext()
 
 function App() {
-  const foods = useFoods()
+  const [foods,] = useFoods()
+  const [cart, setCart] = useCart(foods)
+  const handleAddtoCart = (id, quantity) => {
+    addToDb(id, quantity)
+    const storedCart = []
+    const localStorageObject = JSON.parse(localStorage.getItem('cart'))
+    for (const id in localStorageObject) {
+      const findById = foods.find(food => food.id === id)
+      if (findById) {
+        findById.quantity = localStorageObject[id]
+        storedCart.push(findById)
+      }
+    }
+    setCart(storedCart)
+  }
   return (
-    <ApiContext.Provider value={{ foods }}>
+    <ApiContext.Provider value={{ foods, handleAddtoCart, cart }}>
       <div className="w-100 overflow-hidden App">
-        <Header></Header>
+        <Header cart={cart}></Header>
         <Routes>
           <Route path='/' element={<Home></Home>}>
             <Route path='/breakfast' element={<BreakFast></BreakFast>}></Route>

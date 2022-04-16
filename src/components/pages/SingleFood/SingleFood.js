@@ -5,7 +5,7 @@ import { ApiContext } from '../../../App';
 import './SingleFood.css'
 
 const SingleFood = () => {
-    const { foods } = useContext(ApiContext)
+    const { foods, handleAddtoCart } = useContext(ApiContext)
     let loadingFood;
     let tempArray;
     const [quantity, setQuantity] = useState(1)
@@ -23,16 +23,15 @@ const SingleFood = () => {
         tempArray = JSON.parse(localStorage.getItem('allFoods'))
         loadingFood = tempArray.find(f => f.id === id)
     }
-    console.log(loadingFood);
     const { name, description, prices, img, category } = loadingFood
     return (
-        <div className="vh-100">
+        <div className="h-auto">
             <h1 className="text-center">Category : {category}</h1>
             <div className="d-flex align-items-center">
                 <div className="w-50 ps-4">
                     <h1 className="fw-bold">{name}</h1>
                     <p>{description}</p>
-                    <div className="d-flex w-75 justify-content-between align-items-center">
+                    <div className="d-flex w-75 justify-content-between align-items-start flex-column flex-md-row">
                         <h1 className="fw-bolder">${prices}</h1>
                         <div className="d-inline fs-2 p-2" id='single-food-quantity'>
                             <button className="me-3" onClick={decrease}>
@@ -44,7 +43,7 @@ const SingleFood = () => {
                             </button>
                         </div>
                     </div>
-                    <button className="text-white bg-danger rounded-pill py-2 px-3">
+                    <button className="text-white bg-danger rounded-pill py-2 px-3" onClick={() => handleAddtoCart(id, quantity)}>
                         <ShoppingCartIcon className="me-2" style={{ height: '32px' }}></ShoppingCartIcon>
                         <span>Add to Cart</span>
                     </button>

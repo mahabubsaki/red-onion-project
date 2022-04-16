@@ -6,6 +6,9 @@ import './Home.css'
 const Home = () => {
     return (
         <div>
+            <div>
+
+            </div>
             <div className="banner d-flex justify-content-center align-items-center">
                 <div>
                     <h1>Best Food Waiting For Your Belly</h1>
