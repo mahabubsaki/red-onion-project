@@ -18,7 +18,7 @@ const CheckoutList = ({ item }) => {
     }
 
     return (
-        <div className="p-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: '#F5F5F5', }}>
+        <div className="p-3 mb-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: '#F5F5F5', }}>
             <div>
                 <img src={img} alt="" width="100px" />
             </div>
@@ -26,13 +26,13 @@ const CheckoutList = ({ item }) => {
                 <h6>{name}</h6>
                 <h4 className="text-warning fw-bolder"><b>${prices}</b></h4>
             </div>
-            <div className="d-inline fs-2 p-2" id='single-food-quantity'>
-                <button className="me-3 bg-light" onClick={() => decrease(item)}>
-                    <MinusIcon style={{ height: '32px' }}></MinusIcon>
+            <div className="d-flex flex-column align-items-center  fs-2 p-2" id='single-food-quantity'>
+                <button className="mb-1 bg-light" onClick={() => increase(item)}>
+                    <PlusIcon style={{ height: '32px' }}></PlusIcon>
                 </button>
                 <span style={{ height: '32px' }}>{myQuantity}</span>
-                <button className="ms-3 bg-light" onClick={() => increase(item)}>
-                    <PlusIcon style={{ height: '32px' }}></PlusIcon>
+                <button className="mt-1 bg-light" onClick={() => decrease(item)}>
+                    <MinusIcon style={{ height: '32px' }}></MinusIcon>
                 </button>
             </div>
         </div>

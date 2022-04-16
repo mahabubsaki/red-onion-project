@@ -5,6 +5,7 @@ import Menu from '../../part-components/Menu/Menu';
 import './Home.css'
 
 const Home = () => {
+    document.title = 'Home - Red Onion'
     const navigate = useNavigate()
     return (
         <div>
