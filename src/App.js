@@ -14,6 +14,8 @@ import useCart from './components/hooks/useCart';
 import addToDb from './components/utilities/addToDb';
 import deleteItem from './components/utilities/deleteItem';
 import NotFound from './components/pages/NotFound/NotFound';
+import Checkout from './components/pages/Checkout/Checkout';
+import setQuantity from './components/utilities/setQuantity';
 export const ApiContext = createContext()
 
 function App() {
@@ -24,7 +26,6 @@ function App() {
     setCart([])
   }
   const deleteSingle = (item) => {
-    console.log(item)
     deleteItem(item)
     const storedCart = []
     const localStorageObject = JSON.parse(localStorage.getItem('cart'))
@@ -36,9 +37,7 @@ function App() {
         storedCart.push(findById)
       }
     }
-    console.log(storedCart);
     const currentCart = storedCart.filter(food => food.id !== item.id)
-    console.log(currentCart);
     setCart(currentCart)
   }
   const handleAddtoCart = (id, quantity) => {
@@ -54,8 +53,25 @@ function App() {
     }
     setCart(storedCart)
   }
+  const handleQuantity = (item, quantity) => {
+    setQuantity(item.id, quantity)
+    const storedCart = []
+    const localStorageObject = JSON.parse(localStorage.getItem('cart'))
+    const allFoods = JSON.parse(localStorage.getItem('allFoods'))
+    for (const id in localStorageObject) {
+      const findById = allFoods.find(food => food.id === id)
+      if (findById) {
+        findById.quantity = localStorageObject[id]
+        storedCart.push(findById)
+      }
+    }
+    const quantityItem = storedCart.find(i => i.id === item.id)
+    const rest = storedCart.filter(i => i.id !== item.id)
+    const newCart = [...rest, quantityItem]
+    setCart(newCart)
+  }
   return (
-    <ApiContext.Provider value={{ foods, handleAddtoCart, cart, handleClearAll, deleteSingle }}>
+    <ApiContext.Provider value={{ foods, handleAddtoCart, cart, handleClearAll, deleteSingle, handleQuantity }}>
       <div className="w-100 overflow-hidden App">
         <Header cart={cart}></Header>
         <Routes>
@@ -72,6 +88,7 @@ function App() {
           <Route path='/breakfast/:id' element={<SingleFood></SingleFood>}></Route>
           <Route path='/lunch/:id' element={<SingleFood></SingleFood>}></Route>
           <Route path='/dinner/:id' element={<SingleFood></SingleFood>}></Route>
+          <Route path='/checkout' element={<Checkout></Checkout>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>
         </Routes>
         <Footer></Footer>

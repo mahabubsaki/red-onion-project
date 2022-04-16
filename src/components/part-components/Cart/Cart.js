@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ApiContext } from '../../../App';
 import CartItem from '../CartItem/CartItem';
 
-const Cart = ({ cart, totalCost }) => {
+const Cart = ({ cart }) => {
     const navigate = useNavigate()
     const { handleClearAll } = useContext(ApiContext)
     return (
@@ -20,11 +20,6 @@ const Cart = ({ cart, totalCost }) => {
             {
                 cart.map(item => <CartItem key={item.id} item={item}></CartItem>)
             }
-            <hr />
-            <div className="d-flex w-100 justify-content-between">
-                <h4>Total Cost</h4>
-                <h4>${totalCost}</h4>
-            </div>
         </div>
     );
 };

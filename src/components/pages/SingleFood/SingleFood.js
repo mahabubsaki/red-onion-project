@@ -6,7 +6,6 @@ import NotFound from '../NotFound/NotFound';
 import './SingleFood.css'
 
 const SingleFood = () => {
-    const navigate = useNavigate()
     const { foods, handleAddtoCart } = useContext(ApiContext)
     let loadingFood;
     let tempArray;

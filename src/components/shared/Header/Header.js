@@ -25,12 +25,8 @@ const Header = ({ cart }) => {
         testCart = cart
     }
     let quantity = 0;
-    let totalCost = 0;
-    let eachPrice;
     for (const item of testCart) {
         quantity = quantity + item.quantity
-        eachPrice = item.prices * item.quantity
-        totalCost = totalCost + eachPrice
     }
     const [cartOpen, setCartOpen] = useState(false)
     return (
@@ -57,7 +53,7 @@ const Header = ({ cart }) => {
                     </Container>
                 </Navbar>
                 <div className="position-absolute" id="cart-container" style={{ right: cartOpen ? "0px" : "-1400px", transition: "all 0.5s ease-in-out" }}>
-                    <Cart cart={testCart} totalCost={totalCost.toFixed(2)}></Cart>
+                    <Cart cart={testCart}></Cart>
                 </div>
             </div>
         </div>
