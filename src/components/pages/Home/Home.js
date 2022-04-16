@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Feedback from '../../part-components/Feedback/Feedback';
 import Menu from '../../part-components/Menu/Menu';
 import './Home.css'
 
 const Home = () => {
+    const navigate = useNavigate()
     return (
         <div>
             <div>
@@ -19,8 +21,8 @@ const Home = () => {
                 </div>
             </div>
             <Menu></Menu>
-            <div className="d-flex justify-content-center my-4">
-                <button>Checkout Your Foods</button>
+            <div className="d-flex justify-content-center my-4" onClick={() => navigate('/checkout')}>
+                <button className="btn btn-success">Checkout Your Foods</button>
             </div>
             <Feedback></Feedback>
         </div>

@@ -1,10 +1,12 @@
 import { MinusIcon, PlusIcon, ShoppingCartIcon } from '@heroicons/react/solid';
 import React, { useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ApiContext } from '../../../App';
+import NotFound from '../NotFound/NotFound';
 import './SingleFood.css'
 
 const SingleFood = () => {
+    const navigate = useNavigate()
     const { foods, handleAddtoCart } = useContext(ApiContext)
     let loadingFood;
     let tempArray;
@@ -22,6 +24,9 @@ const SingleFood = () => {
     else {
         tempArray = JSON.parse(localStorage.getItem('allFoods'))
         loadingFood = tempArray.find(f => f.id === id)
+    }
+    if (loadingFood === undefined) {
+        return <NotFound></NotFound>
     }
     const { name, description, prices, img, category } = loadingFood
     return (

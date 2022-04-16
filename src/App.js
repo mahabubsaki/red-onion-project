@@ -13,6 +13,7 @@ import SingleFood from './components/pages/SingleFood/SingleFood';
 import useCart from './components/hooks/useCart';
 import addToDb from './components/utilities/addToDb';
 import deleteItem from './components/utilities/deleteItem';
+import NotFound from './components/pages/NotFound/NotFound';
 export const ApiContext = createContext()
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
           <Route path='/breakfast/:id' element={<SingleFood></SingleFood>}></Route>
           <Route path='/lunch/:id' element={<SingleFood></SingleFood>}></Route>
           <Route path='/dinner/:id' element={<SingleFood></SingleFood>}></Route>
+          <Route path='*' element={<NotFound></NotFound>}></Route>
         </Routes>
         <Footer></Footer>
       </div>

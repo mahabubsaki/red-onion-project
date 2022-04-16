@@ -34,7 +34,7 @@ const Header = ({ cart }) => {
     }
     const [cartOpen, setCartOpen] = useState(false)
     return (
-        <div className="position-fixed zindex-fixed top-0 start-0 end-0 border-1" id='nav'>
+        <div className="position-fixed top-0 start-0 end-0 border-1" id='nav'>
             <div className="position-relative">
                 <Navbar bg="light" expand="lg">
                     <Container fluid>
