@@ -9,9 +9,6 @@ const Home = () => {
     const navigate = useNavigate()
     return (
         <div>
-            <div>
-
-            </div>
             <div className="banner d-flex justify-content-center align-items-center">
                 <div>
                     <h1>Best Food Waiting For Your Belly</h1>

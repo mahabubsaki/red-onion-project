@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo from '../../../assets/logo.png'
 import { ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/solid'
@@ -8,6 +8,7 @@ import './Header.css'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { signOut } from 'firebase/auth';
+import { ApiContext } from '../../../App';
 
 const Header = ({ cart }) => {
     const [user] = useAuthState(auth);
@@ -32,7 +33,7 @@ const Header = ({ cart }) => {
     for (const item of testCart) {
         quantity = quantity + item.quantity
     }
-    const [cartOpen, setCartOpen] = useState(false)
+    const { cartOpen, setCartOpen } = useContext(ApiContext)
     return (
         <div className="position-fixed top-0 start-0 end-0 border-1" id='nav'>
             <div className="position-relative">
@@ -53,6 +54,7 @@ const Header = ({ cart }) => {
                                 {
                                     user ?
                                         <>
+                                            <Nav.Link as={Link} to="/checkout"><button className='btn btn-success text-white rounded-pill'>Chekout</button></Nav.Link>
                                             <Nav.Link><UserCircleIcon style={{ height: '40px' }}></UserCircleIcon></Nav.Link>
                                             <Nav.Link><button className='btn btn-danger text-white rounded-pill' onClick={() => signOut(auth)}>Logout</button></Nav.Link>
                                         </>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import Allmeal from '../Allmeal/Allmeal';
 import CustomLink from '../CustomLink';
 import './Menu.css'
 
@@ -11,6 +12,7 @@ const Menu = () => {
                 <CustomLink to='/lunch'>Lunch</CustomLink>
                 <CustomLink to='/dinner'>Dinner</CustomLink>
             </div>
+            <Allmeal></Allmeal>
             <div className="my-3">
                 <Outlet></Outlet>
             </div>

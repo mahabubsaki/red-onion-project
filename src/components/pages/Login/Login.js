@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import logo from '../../../assets/logo2.png'
 import { FcGoogle } from 'react-icons/fc'
-import { IoLogoFacebook } from 'react-icons/io'
-import { FiGithub } from 'react-icons/fi'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-bootstrap';
-
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     let navigate = useNavigate();
     let location = useLocation();
+    const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
     let from = location.state?.from?.pathname || "/";
     const [
         signInWithEmailAndPassword,
@@ -21,15 +18,24 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+    const [initUser, initLoading] = useAuthState(auth);
+    useEffect(() => {
+        if (initUser) {
+            navigate('/')
+        }
+    }, [initUser, navigate])
     const [myError, setMyError] = useState('')
     useEffect(() => {
         if (error) {
             setMyError(error.message)
         }
+        if (error1) {
+            setMyError(error1.message)
+        }
         else {
             setMyError('')
         }
-    }, [error])
+    }, [error, error1])
     useEffect(() => {
         if (myError) {
             toast.error(myError, {
@@ -44,10 +50,19 @@ const Login = () => {
             // alert(myError)
         }
     }, [myError])
-    if (user) {
-        navigate(from, { replace: true });
+    useEffect(() => {
+        if (user || user1) {
+            navigate(from, { replace: true });
+        }
+    }, [user, user1, navigate, from])
+    if (loading || loading1) {
+        return <div style={{ marginTop: "80px", height: "700px" }} className="d-flex justify-content-center align-items-center">
+            <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>;
     }
-    if (loading) {
+    if (initLoading) {
         return <div style={{ marginTop: "80px", height: "700px" }} className="d-flex justify-content-center align-items-center">
             <div className="spinner-border" role="status">
                 <span className="visually-hidden">Loading...</span>
@@ -74,17 +89,9 @@ const Login = () => {
                     <hr style={{ width: '35%', border: '3px solid black' }} />
                 </div>
                 <p className="text-center">New User ? <Link to="/signup" className='text-decoration-none text-info'>Sign Up</Link> Now!</p>
-                <button className="d-block w-50 mx-auto btn btn-light border border-primary mb-2">
+                <button className="d-block w-75 mx-auto btn btn-light border border-primary mb-2" onClick={() => signInWithGoogle()}>
                     <FcGoogle></FcGoogle>
                     <span className='ms-2'>Continue With Google</span>
-                </button>
-                <button className="d-block w-50 mx-auto btn btn-primary border border-success mb-2">
-                    <IoLogoFacebook></IoLogoFacebook>
-                    <span className='ms-2'>Continue With Facebook</span>
-                </button>
-                <button className="d-block w-50 mx-auto btn btn-dark border border-warning mb-2">
-                    <FiGithub></FiGithub>
-                    <span className='ms-2'>Continue With Github</span>
                 </button>
             </div>
         </div>

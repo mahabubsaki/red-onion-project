@@ -6,7 +6,7 @@ import Home from './components/pages/Home/Home';
 import BreakFast from './components/part-components/BreakFast/BreakFast';
 import Lunch from './components/part-components/Lunch/Lunch';
 import Dinner from './components/part-components/Dinner/Dinner';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import useFoods from './components/hooks/useFoods';
 import './App.css'
 import SingleFood from './components/pages/SingleFood/SingleFood';
@@ -71,37 +71,42 @@ function App() {
     }
     const quantityItem = storedCart.find(i => i.id === item.id)
     const rest = storedCart.filter(i => i.id !== item.id)
-    const newCart = [...rest, quantityItem]
+    const newCart = [quantityItem, ...rest]
     setCart(newCart)
   }
+  const [cartOpen, setCartOpen] = useState(false)
   return (
-    <ApiContext.Provider value={{ foods, handleAddtoCart, cart, handleClearAll, deleteSingle, handleQuantity }}>
+    <ApiContext.Provider value={{ foods, handleAddtoCart, cart, handleClearAll, deleteSingle, handleQuantity, cartOpen, setCartOpen }}>
       <div className="w-100 overflow-hidden App">
         <ToastContainer></ToastContainer>
         <Header cart={cart}></Header>
-        <Routes>
-          <Route path='/' element={<Home></Home>}>
-            <Route path='/breakfast' element={<BreakFast></BreakFast>}></Route>
-            <Route path='/lunch' element={<Lunch></Lunch>}></Route>
-            <Route path='/dinner' element={<Dinner></Dinner>}></Route>
-          </Route>
-          <Route path='/home' element={<Home></Home>}>
-            <Route path='home/breakfast' element={<BreakFast></BreakFast>}></Route>
-            <Route path='home/lunch' element={<Lunch></Lunch>}></Route>
-            <Route path='home/dinner' element={<Dinner></Dinner>}></Route>
-          </Route>
-          <Route path='/breakfast/:id' element={<SingleFood></SingleFood>}></Route>
-          <Route path='/lunch/:id' element={<SingleFood></SingleFood>}></Route>
-          <Route path='/dinner/:id' element={<SingleFood></SingleFood>}></Route>
-          <Route path='/checkout' element={
-            <RequireAuth>
-              <Checkout></Checkout>
-            </RequireAuth>
-          }></Route>
-          <Route path='/login' element={<Login></Login>}></Route>
-          <Route path='/signup' element={<SignUp></SignUp>}></Route>
-          <Route path='*' element={<NotFound></NotFound>}></Route>
-        </Routes>
+        <div onClick={() => setCartOpen(false)}>
+          <Routes>
+            <Route path='/' element={<Home></Home>}>
+              <Route path='/breakfast' index element={<BreakFast></BreakFast>}></Route>
+              <Route element={<BreakFast></BreakFast>}></Route>
+              <Route path='/lunch' element={<Lunch></Lunch>}></Route>
+              <Route path='/dinner' element={<Dinner></Dinner>}></Route>
+            </Route>
+            <Route path='/home' element={<Home></Home>}>
+              <Route path='home/breakfast' element={<BreakFast></BreakFast>}></Route>
+              <Route path='home/lunch' element={<Lunch></Lunch>}></Route>
+              <Route path='home/dinner' element={<Dinner></Dinner>}></Route>
+            </Route>
+            <Route path='/breakfast/:id' element={<SingleFood></SingleFood>}></Route>
+            <Route path='/lunch/:id' element={<SingleFood></SingleFood>}></Route>
+            <Route path='/dinner/:id' element={<SingleFood></SingleFood>}></Route>
+            <Route path='/:id' element={<SingleFood></SingleFood>}></Route>
+            <Route path='/checkout' element={
+              <RequireAuth>
+                <Checkout></Checkout>
+              </RequireAuth>
+            }></Route>
+            <Route path='/login' element={<Login></Login>}></Route>
+            <Route path='/signup' element={<SignUp></SignUp>}></Route>
+            <Route path='*' element={<NotFound></NotFound>}></Route>
+          </Routes>
+        </div>
         <Footer></Footer>
       </div>
     </ApiContext.Provider>
