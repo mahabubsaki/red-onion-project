@@ -49,7 +49,11 @@ const SignUp = () => {
             },
             body: JSON.stringify(fullUser)
         })
-        return
+            .then(res => console.log(res))
+            .catch(err => {
+                console.log(err)
+                return
+            })
         if (password.length < 8) {
             toast.error('Password can not be less than 8 characters', {
                 position: "top-center",
