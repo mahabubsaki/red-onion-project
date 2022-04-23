@@ -36,9 +36,13 @@ const SignUp = () => {
     }, [myError])
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [name, setName] = useState('')
     const [confirm, setConfirm] = useState('')
     const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
     const handleSubmit = (e) => {
+        const fullUser = { name, email, password }
+        console.log(fullUser);
+        return
         e.preventDefault()
         if (password.length < 8) {
             toast.error('Password can not be less than 8 characters', {
@@ -110,7 +114,7 @@ const SignUp = () => {
                 <img src={logo} alt="" className="w-50 d-block mx-auto" style={{ height: "100px" }} />
                 <form onSubmit={handleSubmit}>
                     <h1 className="text-center my-3">Sign Up</h1>
-                    <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Name" style={{ backgroundColor: '#F5F5F5' }} required />
+                    <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Name" style={{ backgroundColor: '#F5F5F5' }} required onChange={(e) => setName(e.target.value)} />
                     <input type="email" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Email" style={{ backgroundColor: '#F5F5F5' }} required onChange={(e) => setEmail(e.target.value)} />
                     <input type="password" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Password" style={{ backgroundColor: '#F5F5F5' }} required onChange={(e) => setPassword(e.target.value)} />
                     <input type="password" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Confirm Password" style={{ backgroundColor: '#F5F5F5' }} required onChange={(e) => setConfirm(e.target.value)} />
