@@ -42,18 +42,6 @@ const SignUp = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const fullUser = { name, email, password }
-        fetch('localhost:5000/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(fullUser)
-        })
-            .then(res => console.log(res))
-            .catch(err => {
-                console.log(err)
-                return
-            })
         if (password.length < 8) {
             toast.error('Password can not be less than 8 characters', {
                 position: "top-center",
@@ -78,6 +66,24 @@ const SignUp = () => {
             });
             return
         }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(fullUser)
+        }).catch(err => {
+            toast.error(err, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return
+        })
         createUserWithEmailAndPassword(email, password)
     }
     useEffect(() => {
@@ -94,6 +100,15 @@ const SignUp = () => {
     useEffect(() => {
         if (user || user1) {
             navigate('/');
+            toast.success('Signed Up Successfully', {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
         }
     }, [user, user1, navigate])
     useEffect(() => {
