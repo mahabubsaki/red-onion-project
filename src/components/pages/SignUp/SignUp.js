@@ -40,10 +40,16 @@ const SignUp = () => {
     const [confirm, setConfirm] = useState('')
     const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
     const handleSubmit = (e) => {
-        const fullUser = { name, email, password }
-        console.log(fullUser);
-        return
         e.preventDefault()
+        const fullUser = { name, email, password }
+        fetch('localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(fullUser)
+        })
+        return
         if (password.length < 8) {
             toast.error('Password can not be less than 8 characters', {
                 position: "top-center",
