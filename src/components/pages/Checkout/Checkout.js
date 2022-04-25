@@ -12,7 +12,7 @@ const Checkout = () => {
     const [formInfo, setFormInfo] = useState({})
     const [user] = useAuthState(auth);
     document.title = 'Checkout - Red Onion'
-    const { cart } = useContext(ApiContext)
+    const { cart, handleClearAll } = useContext(ApiContext)
     let quantity = 0;
     let prices = 0;
     let eachPrice;
@@ -67,7 +67,8 @@ const Checkout = () => {
         }
         updateOrder()
             .then(res => {
-                console.log(res)
+                localStorage.clear('cart')
+                handleClearAll()
             })
     }
     return (
