@@ -6,7 +6,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { async } from '@firebase/util';
 
 const Checkout = () => {
     const [formOk, setFormOk] = useState(false)
@@ -51,7 +50,7 @@ const Checkout = () => {
         const orderOverview = { order, formInfo }
         async function updateOrder() {
             try {
-                const response = await axios.post(`http://localhost:5000/users?email=${user?.email}`, orderOverview)
+                const response = await axios.post(`http://localhost:5000/users?email=${user?.email}&reason=order`, orderOverview)
                 return response
             }
             catch (err) {
@@ -66,7 +65,10 @@ const Checkout = () => {
                 })
             }
         }
-        const response = updateOrder()
+        updateOrder()
+            .then(res => {
+                console.log(res)
+            })
     }
     return (
         <div className="h-auto w-100 d-flex align-items-center flex-column flex-md-row" style={{ marginTop: "80px" }}>

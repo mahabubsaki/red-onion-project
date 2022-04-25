@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo from '../../../assets/logo.png'
 import { ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/solid'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Cart from '../../part-components/Cart/Cart';
 import './Header.css'
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -11,6 +11,7 @@ import { signOut } from 'firebase/auth';
 import { ApiContext } from '../../../App';
 
 const Header = ({ cart }) => {
+    const navigate = useNavigate()
     const [user] = useAuthState(auth);
     let testCart;
     if (cart.length === 0) {
@@ -29,11 +30,17 @@ const Header = ({ cart }) => {
     else {
         testCart = cart
     }
-    let quantity = 0;
+    let quantity = 0
     for (const item of testCart) {
         quantity = quantity + item.quantity
     }
     const { cartOpen, setCartOpen } = useContext(ApiContext)
+    const handleSignout = () => {
+        signOut(auth)
+        localStorage.clear('cart')
+        navigate('/')
+        window.location.reload()
+    }
     return (
         <div className="position-fixed top-0 start-0 end-0 border-1" id='nav'>
             <div className="position-relative">
@@ -56,7 +63,7 @@ const Header = ({ cart }) => {
                                         <>
                                             <Nav.Link as={Link} to="/checkout"><button className='btn btn-success text-white rounded-pill'>Chekout</button></Nav.Link>
                                             <Nav.Link><UserCircleIcon style={{ height: '40px' }}></UserCircleIcon></Nav.Link>
-                                            <Nav.Link><button className='btn btn-danger text-white rounded-pill' onClick={() => signOut(auth)}>Logout</button></Nav.Link>
+                                            <Nav.Link><button className='btn btn-danger text-white rounded-pill' onClick={handleSignout}>Logout</button></Nav.Link>
                                         </>
                                         :
                                         <>
