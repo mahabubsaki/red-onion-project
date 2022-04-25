@@ -20,6 +20,7 @@ import Login from './components/pages/Login/Login';
 import SignUp from './components/pages/SignUp/SignUp';
 import RequireAuth from './components/part-components/RequireAuth';
 import { ToastContainer } from 'react-toastify';
+import Orders from './components/pages/Orders/Orders';
 export const ApiContext = createContext()
 
 function App() {
@@ -100,6 +101,11 @@ function App() {
             <Route path='/checkout' element={
               <RequireAuth>
                 <Checkout></Checkout>
+              </RequireAuth>
+            }></Route>
+            <Route path='/orders' element={
+              <RequireAuth>
+                <Orders></Orders>
               </RequireAuth>
             }></Route>
             <Route path='/login' element={<Login></Login>}></Route>
