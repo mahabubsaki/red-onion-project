@@ -9,7 +9,7 @@ const Orders = () => {
     const [owner, setOwner] = useState({})
     const [owenerName, setOwnerName] = useState('')
     const [orderLength, setOrderLength] = useState(0)
-    const { name, email, allOrder } = owner || {}
+    const { name, allOrder } = owner || {}
     useEffect(() => {
         if (allOrder) {
             setOrderLength(allOrder.length)
