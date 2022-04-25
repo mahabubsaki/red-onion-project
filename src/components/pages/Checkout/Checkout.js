@@ -1,9 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ApiContext } from '../../../App';
 import './Checkout.css'
 import CheckoutList from '../../part-components/CheckoutList/CheckoutList';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 
 const Checkout = () => {
+    const [formOk, setFormOk] = useState(false)
+    const [user] = useAuthState(auth);
     document.title = 'Checkout - Red Onion'
     const { cart } = useContext(ApiContext)
     let quantity = 0;
@@ -17,20 +21,32 @@ const Checkout = () => {
     const tax = prices * 0.05
     let total = prices + tax
     const fee = prices * 0.075
+    const handleForm = (e) => {
+        const formInfo = {
+            floor: e.target.floor.value,
+            area: e.target.area.value,
+            mobile: e.target.mobile.value,
+            description: e.target.description.value,
+        }
+    }
     return (
         <div className="h-auto w-100 d-flex align-items-center flex-column flex-md-row" style={{ marginTop: "80px" }}>
             <div className="side-container">
                 <h3 className="text-center">Edit delivery address</h3>
                 <hr className="border border-3 border-dark w-75 d-block mx-auto" />
                 <form>
-                    <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Name" style={{ backgroundColor: '#F5F5F5' }} />
-                    <input type="email" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Email" style={{ backgroundColor: '#F5F5F5' }} />
-                    <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Flat, Suit or Floor" style={{ backgroundColor: '#F5F5F5' }} required />
-                    <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Business Name" style={{ backgroundColor: '#F5F5F5' }} required />
-                    <input type="number" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Mobile No" style={{ backgroundColor: '#F5F5F5' }} required />
-                    <textarea className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" style={{ backgroundColor: '#F5F5F5', resize: 'none', height: '150px' }} placeholder="Add delivery instructor" required></textarea>
+                    {user?.displayName ?
+                        <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Name" style={{ backgroundColor: '#F5F5F5' }} value={user?.displayName} disabled readOnly />
+                        :
+                        <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Name" style={{ backgroundColor: '#F5F5F5' }} />
+                    }
+                    <input type="email" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Email" style={{ backgroundColor: '#F5F5F5' }} value={user?.email} disabled readOnly />
+                    <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Flat, Suit or Floor" style={{ backgroundColor: '#F5F5F5' }} name="floor" required />
+                    <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Area Name" style={{ backgroundColor: '#F5F5F5' }} name="area" required />
+                    <input type="number" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Mobile No" style={{ backgroundColor: '#F5F5F5' }} required name="mobile" />
+                    <textarea className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" style={{ backgroundColor: '#F5F5F5', resize: 'none', height: '150px' }} placeholder="Add delivery instructor" name="description" required></textarea>
                     <div className="d-flex justify-content-center">
-                        <button className="btn btn-success" type="submit">Save</button>
+                        <button className="btn btn-success" type="submit" onSubmit={handleForm}>Save</button>
                     </div>
                 </form>
             </div>
@@ -60,7 +76,8 @@ const Checkout = () => {
                             <h5>${quantity >= 10 ? (Number(total.toFixed(2)) + 2).toFixed(2) : (Number(total.toFixed(2)) + Number(fee.toFixed(2))).toFixed(2)}</h5>
                         </div>
                     </div>
-                    <button className="w-75 d-block mx-auto btn btn-success">Place Order</button>
+                    <button className="w-75 d-block mx-auto btn btn-success" disabled={!formOk}>Place Order</button>
+                    {!formOk && <p className="text-center text-danger">Please fullfill the for order</p>}
                 </div>
             </div>
         </div>
