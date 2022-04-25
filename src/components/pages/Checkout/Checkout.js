@@ -6,8 +6,10 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
+    const navigate = useNavigate()
     const [formOk, setFormOk] = useState(false)
     const [formInfo, setFormInfo] = useState({})
     const [user] = useAuthState(auth);
@@ -27,6 +29,7 @@ const Checkout = () => {
     const handleForm = (e) => {
         e.preventDefault()
         const formInfo = {
+            name: e.target.name.value || '',
             floor: e.target.floor.value,
             area: e.target.area.value,
             mobile: e.target.mobile.value,
@@ -47,6 +50,19 @@ const Checkout = () => {
     }
     const handlePlaceOrder = () => {
         const order = JSON.parse(localStorage.getItem('cart'))
+        if (!order || order === {}) {
+            toast.error('Please add something to cart', {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+            setFormOk(false)
+            return
+        }
         const orderOverview = { order, formInfo }
         async function updateOrder() {
             try {
@@ -69,6 +85,16 @@ const Checkout = () => {
             .then(res => {
                 localStorage.clear('cart')
                 handleClearAll()
+                navigate('/orders')
+                toast.success('Ordered Successfully', {
+                    position: "top-center",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
             })
     }
     return (
@@ -80,7 +106,7 @@ const Checkout = () => {
                     {user?.displayName ?
                         <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Name" style={{ backgroundColor: '#F5F5F5' }} value={user?.displayName} disabled readOnly />
                         :
-                        <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Name" style={{ backgroundColor: '#F5F5F5' }} />
+                        <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Name" style={{ backgroundColor: '#F5F5F5' }} name="name" />
                     }
                     <input type="email" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Email" style={{ backgroundColor: '#F5F5F5' }} value={user?.email} disabled readOnly />
                     <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Flat, Suit or Floor" style={{ backgroundColor: '#F5F5F5' }} name="floor" required />
