@@ -34,12 +34,12 @@ const Header = ({ cart }) => {
     for (const item of testCart) {
         quantity = quantity + item.quantity
     }
-    const { cartOpen, setCartOpen } = useContext(ApiContext)
+    const { cartOpen, setCartOpen, handleClearAll } = useContext(ApiContext)
     const handleSignout = () => {
         signOut(auth)
         localStorage.clear('cart')
         navigate('/')
-        window.location.reload()
+        handleClearAll()
     }
     return (
         <div className="position-fixed top-0 start-0 end-0 border-1" id='nav'>
@@ -62,6 +62,7 @@ const Header = ({ cart }) => {
                                     user ?
                                         <>
                                             <Nav.Link as={Link} to="/checkout"><button className='btn btn-success text-white rounded-pill'>Chekout</button></Nav.Link>
+                                            <Nav.Link as={Link} to="/orders"><button className='btn btn-success text-white rounded-pill'>Orders</button></Nav.Link>
                                             <Nav.Link><UserCircleIcon style={{ height: '40px' }}></UserCircleIcon></Nav.Link>
                                             <Nav.Link><button className='btn btn-danger text-white rounded-pill' onClick={handleSignout}>Logout</button></Nav.Link>
                                         </>
