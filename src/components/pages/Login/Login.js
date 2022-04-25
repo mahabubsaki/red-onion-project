@@ -52,6 +52,30 @@ const Login = () => {
     }, [myError])
     useEffect(() => {
         if (user || user1) {
+            if (user1) {
+                const { displayName, email } = user1.user
+                console.log(user1);
+                const fullUser = { name: displayName, email: email, password: null }
+                console.log(fullUser);
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(fullUser)
+                }).catch(err => {
+                    toast.error(err, {
+                        position: "top-center",
+                        autoClose: 4000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    return
+                })
+            }
             navigate(from, { replace: true });
         }
     }, [user, user1, navigate, from])
