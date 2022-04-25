@@ -22,19 +22,22 @@ const Checkout = () => {
     let total = prices + tax
     const fee = prices * 0.075
     const handleForm = (e) => {
+        e.preventDefault()
         const formInfo = {
             floor: e.target.floor.value,
             area: e.target.area.value,
             mobile: e.target.mobile.value,
             description: e.target.description.value,
         }
+        console.log(formInfo);
+        e.target.reset()
     }
     return (
         <div className="h-auto w-100 d-flex align-items-center flex-column flex-md-row" style={{ marginTop: "80px" }}>
             <div className="side-container">
                 <h3 className="text-center">Edit delivery address</h3>
                 <hr className="border border-3 border-dark w-75 d-block mx-auto" />
-                <form>
+                <form onSubmit={handleForm}>
                     {user?.displayName ?
                         <input type="text" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Name" style={{ backgroundColor: '#F5F5F5' }} value={user?.displayName} disabled readOnly />
                         :
@@ -46,7 +49,7 @@ const Checkout = () => {
                     <input type="number" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Mobile No" style={{ backgroundColor: '#F5F5F5' }} required name="mobile" />
                     <textarea className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" style={{ backgroundColor: '#F5F5F5', resize: 'none', height: '150px' }} placeholder="Add delivery instructor" name="description" required></textarea>
                     <div className="d-flex justify-content-center">
-                        <button className="btn btn-success" type="submit" onSubmit={handleForm}>Save</button>
+                        <button className="btn btn-success" type="submit" >Save</button>
                     </div>
                 </form>
             </div>
