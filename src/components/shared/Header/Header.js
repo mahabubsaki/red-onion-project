@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo from '../../../assets/logo.png'
 import { ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/solid'
