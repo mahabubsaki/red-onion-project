@@ -4,9 +4,13 @@ import './Checkout.css'
 import CheckoutList from '../../part-components/CheckoutList/CheckoutList';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { async } from '@firebase/util';
 
 const Checkout = () => {
     const [formOk, setFormOk] = useState(false)
+    const [formInfo, setFormInfo] = useState({})
     const [user] = useAuthState(auth);
     document.title = 'Checkout - Red Onion'
     const { cart } = useContext(ApiContext)
@@ -29,8 +33,40 @@ const Checkout = () => {
             mobile: e.target.mobile.value,
             description: e.target.description.value,
         }
-        console.log(formInfo);
+        setFormInfo(formInfo)
+        setFormOk(true)
+        toast.success('User info saved successfully', {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
         e.target.reset()
+    }
+    const handlePlaceOrder = () => {
+        const order = JSON.parse(localStorage.getItem('cart'))
+        const orderOverview = { order, formInfo }
+        async function updateOrder() {
+            try {
+                const response = await axios.post(`http://localhost:5000/users?email=${user?.email}`, orderOverview)
+                return response
+            }
+            catch (err) {
+                toast.error(err, {
+                    position: "top-center",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            }
+        }
+        const response = updateOrder()
     }
     return (
         <div className="h-auto w-100 d-flex align-items-center flex-column flex-md-row" style={{ marginTop: "80px" }}>
@@ -79,7 +115,7 @@ const Checkout = () => {
                             <h5>${quantity >= 10 ? (Number(total.toFixed(2)) + 2).toFixed(2) : (Number(total.toFixed(2)) + Number(fee.toFixed(2))).toFixed(2)}</h5>
                         </div>
                     </div>
-                    <button className="w-75 d-block mx-auto btn btn-success" disabled={!formOk}>Place Order</button>
+                    <button className="w-75 d-block mx-auto btn btn-success" onClick={handlePlaceOrder} disabled={!formOk}>Place Order</button>
                     {!formOk && <p className="text-center text-danger">Please fullfill the for order</p>}
                 </div>
             </div>
