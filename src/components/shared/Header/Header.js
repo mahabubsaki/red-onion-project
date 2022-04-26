@@ -37,7 +37,7 @@ const Header = ({ cart }) => {
     const { cartOpen, setCartOpen, handleClearAll } = useContext(ApiContext)
     const handleSignout = () => {
         signOut(auth)
-        navigate('/')
+        navigate('/login')
         localStorage.clear('cart')
         handleClearAll()
     }

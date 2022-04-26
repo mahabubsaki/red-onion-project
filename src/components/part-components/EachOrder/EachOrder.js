@@ -3,20 +3,39 @@ import './EachOrder.css'
 
 const EachOrder = ({ eachOrder, no }) => {
     const [totalOrder, setTotalOrder] = useState(0)
-    const [time, setTime] = useState(0)
-    const [date, setDate] = useState(0)
+    const [time, setTime] = useState('')
+    const [id, setId] = useState('')
+    const [date, setDate] = useState('')
+    const [floor, setFloor] = useState('')
+    const [area, setArea] = useState('')
+    const [mobile, setMobile] = useState('')
     const { formInfo, order } = eachOrder || {}
     useEffect(() => {
         if (order) {
             setTotalOrder(Object.values(order).reduce((acc, item) => acc + item, 0))
         }
+        if (formInfo) {
+            const { date, time, orderId, floor, area, mobile } = formInfo
+            setDate(date)
+            setId(orderId)
+            setTime(time)
+            setFloor(floor)
+            setArea(area)
+            setMobile(mobile)
+        }
     }, [order, formInfo])
-    console.log(order)
-    console.log(formInfo)
+    console.log(time)
     return (
-        <div className="w-100 border border-dark d-flex mb-1 order">
-            <h3 className="border-end border-dark px-3">{no}</h3>
-            <h3 className="border-end border-dark px-3">{totalOrder}</h3>
+        <div className="col border border-dark mb-1 order py-2 rounded-3 card">
+            <div className="text-center"><span className="px-4 py-2 bg-success rounded-circle">{no}</span></div>
+            <h1 className="text-center">Order Id #{id}</h1>
+            <h3 className="text-center">Status : <span className="text-warning">Pending</span></h3>
+            <h3 className="text-center">Ordered on {date} {time}</h3>
+            <h3 className="text-center">Total Foods : {totalOrder}</h3>
+            <p>Floor : {floor}</p>
+            <p>Area : {area}</p>
+            <p>Mobile : {mobile}</p>
+            <button className='d-block mx-auto btn btn-primary'>See Details</button>
         </div>
     );
 };
