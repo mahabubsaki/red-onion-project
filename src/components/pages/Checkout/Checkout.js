@@ -9,7 +9,6 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
-    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const [formOk, setFormOk] = useState(false)
     const [formInfo, setFormInfo] = useState({})
