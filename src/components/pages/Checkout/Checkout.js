@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ApiContext } from '../../../App';
 import './Checkout.css'
 import CheckoutList from '../../part-components/CheckoutList/CheckoutList';
@@ -26,6 +26,10 @@ const Checkout = () => {
     const tax = prices * 0.05
     let total = prices + tax
     const fee = prices * 0.075
+    const [cost, setCost] = useState(0)
+    useEffect(() => {
+        setCost(quantity >= 10 ? (Number(total.toFixed(2)) + 2).toFixed(2) : (Number(total.toFixed(2)) + Number(fee.toFixed(2))).toFixed(2))
+    }, [quantity, total, fee])
     const handleForm = (e) => {
         e.preventDefault()
         const formInfo = {
@@ -37,6 +41,7 @@ const Checkout = () => {
             date: `${new Date().getUTCDate()}/${new Date().getUTCMonth() + 1}/${new Date().getUTCFullYear()}`,
             time: `${new Date().toLocaleTimeString()}`,
             orderId: `${(Math.floor(Math.random() * 100000000000000)).toString(16)}`,
+            cost: cost,
         }
         setFormInfo(formInfo)
         setFormOk(true)
