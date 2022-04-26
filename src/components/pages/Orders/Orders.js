@@ -1,11 +1,14 @@
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../../firebase.init';
 import EachOrder from '../../part-components/EachOrder/EachOrder';
 
 const Orders = () => {
+    const navigate = useNavigate()
     const [user] = useAuthState(auth);
     const [owner, setOwner] = useState({})
     const [owenerName, setOwnerName] = useState('')
@@ -19,12 +22,20 @@ const Orders = () => {
     }, [allOrder])
     useEffect(() => {
         async function getUserOrder() {
-            const response = await axios.get(`http://localhost:5000/user/${user.email}`, {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('access_token')}`
+            try {
+                const response = await axios.get(`http://localhost:5000/user/${user.email}`, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                })
+                return response
+            }
+            catch (err) {
+                if (err.response.status === 401 || err.response.status === 403) {
+                    signOut(auth)
+                    navigate('/login')
                 }
-            })
-            return response
+            }
         }
         getUserOrder()
             .then((res) => {
