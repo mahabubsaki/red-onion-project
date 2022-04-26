@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const [formOk, setFormOk] = useState(false)
     const [formInfo, setFormInfo] = useState({})
@@ -40,7 +41,7 @@ const Checkout = () => {
             description: e.target.description.value,
             date: `${new Date().getUTCDate()}/${new Date().getUTCMonth() + 1}/${new Date().getUTCFullYear()}`,
             time: `${new Date().toLocaleTimeString()}`,
-            orderId: `${(Math.floor(Math.random() * 100000000000000)).toString(16)}`,
+            orderId: `${(Math.floor(Math.random() * 10000)).toString(16)}`,
             cost: cost,
         }
         setFormInfo(formInfo)
@@ -72,9 +73,10 @@ const Checkout = () => {
             return
         }
         const orderOverview = { order, formInfo }
+        console.log(orderOverview);
         async function updateOrder() {
             try {
-                const response = await axios.post(`http://localhost:5000/users?email=${user?.email}&reason=order`, orderOverview)
+                const response = await axios.post(`https://quiet-tor-13369.herokuapp.com/users?email=${user?.email}&reason=order`, orderOverview)
                 return response
             }
             catch (err) {
