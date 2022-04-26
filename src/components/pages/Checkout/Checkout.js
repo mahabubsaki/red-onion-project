@@ -91,7 +91,6 @@ const Checkout = () => {
         }
         updateOrder()
             .then(res => {
-                localStorage.clear('cart')
                 handleClearAll()
                 navigate('/')
                 toast.success('Ordered Successfully', {
