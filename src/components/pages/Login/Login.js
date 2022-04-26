@@ -57,15 +57,17 @@ const Login = () => {
         if (user || user1) {
             if (user) {
                 const getAccessToken = async () => {
-                    const { data } = await axios.post('http://localhost:5000/login', user?.user?.email)
-                    console.log(data);
+                    const email = user?.user?.email
+                    const { data } = await axios.post('http://localhost:5000/login', { email })
+                    localStorage.setItem('access_token', data.accessToken)
                 }
                 getAccessToken()
             }
             if (user1) {
                 const getAccessToken = async () => {
-                    const { data } = await axios.post('http://localhost:5000/login', user1?.user?.email)
-                    console.log(data);
+                    const email = user1?.user?.email
+                    const { data } = await axios.post('http://localhost:5000/login', { email })
+                    localStorage.setItem('access_token', data.accessToken)
                 }
                 getAccessToken()
                 const { displayName, email } = user1?.user
