@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
+import { signOut } from 'firebase/auth';
 const SignUp = () => {
     const navigate = useNavigate()
     const [
@@ -123,8 +124,8 @@ const SignUp = () => {
                     return
                 })
             }
-            navigate('/');
-            toast.success('Signed Up Successfully', {
+            signOut(auth)
+            toast.success('Signed Up Successfully,You can now Log in', {
                 position: "top-center",
                 autoClose: 4000,
                 hideProgressBar: false,
@@ -133,6 +134,9 @@ const SignUp = () => {
                 draggable: true,
                 progress: undefined,
             })
+            setTimeout(() => {
+                navigate('/login')
+            }, 100)
         }
     }, [user, user1, navigate])
     useEffect(() => {
