@@ -136,7 +136,7 @@ const SignUp = () => {
             })
             setTimeout(() => {
                 navigate('/login')
-            }, 100)
+            }, 0)
         }
     }, [user, user1, navigate])
     useEffect(() => {
