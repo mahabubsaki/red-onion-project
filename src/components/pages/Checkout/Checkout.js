@@ -34,6 +34,8 @@ const Checkout = () => {
             area: e.target.area.value,
             mobile: e.target.mobile.value,
             description: e.target.description.value,
+            date: `${new Date().getUTCDate()}/${new Date().getUTCMonth() + 1}/${new Date().getUTCFullYear()}`,
+            time: `${new Date().toLocaleTimeString()}`
         }
         setFormInfo(formInfo)
         setFormOk(true)

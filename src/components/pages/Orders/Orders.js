@@ -13,7 +13,7 @@ const Orders = () => {
     useEffect(() => {
         if (allOrder) {
             setOrderLength(allOrder.length)
-            setOwnerName(allOrder[0].name)
+            setOwnerName(allOrder[0].formInfo.name || '')
         }
     }, [allOrder])
     useEffect(() => {
