@@ -35,7 +35,8 @@ const Checkout = () => {
             mobile: e.target.mobile.value,
             description: e.target.description.value,
             date: `${new Date().getUTCDate()}/${new Date().getUTCMonth() + 1}/${new Date().getUTCFullYear()}`,
-            time: `${new Date().toLocaleTimeString()}`
+            time: `${new Date().toLocaleTimeString()}`,
+            orderId: `${(Math.floor(Math.random() * 100000000000000)).toString(16)}`,
         }
         setFormInfo(formInfo)
         setFormOk(true)

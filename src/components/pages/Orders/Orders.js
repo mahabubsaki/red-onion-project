@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import auth from '../../../firebase.init';
+import EachOrder from '../../part-components/EachOrder/EachOrder';
 
 const Orders = () => {
     const [user] = useAuthState(auth);
@@ -38,9 +39,14 @@ const Orders = () => {
             })
     }, [user])
     return (
-        <div style={{ marginTop: "80px" }}>
+        <div style={{ marginTop: "80px", minHeight: "100vh" }}>
             <h1 className="text-center">This is order page of {name || owenerName}</h1>
             <h2 className="text-center">You have {orderLength} orders</h2>
+            <div className="w-75 mx-auto">
+                {
+                    allOrder?.map(order => <EachOrder eachOrder={order} key={allOrder.indexOf(order) + 1} no={allOrder.indexOf(order) + 1}></EachOrder>)
+                }
+            </div>
         </div>
     );
 };
