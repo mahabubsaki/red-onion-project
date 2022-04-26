@@ -16,14 +16,14 @@ const Orders = () => {
     const { name, allOrder } = owner || {}
     useEffect(() => {
         if (allOrder) {
-            setOrderLength(allOrder.length)
-            setOwnerName(allOrder[0].formInfo.name || '')
+            setOrderLength(allOrder?.length)
+            setOwnerName(allOrder[0]?.formInfo.name || '')
         }
     }, [allOrder])
     useEffect(() => {
         async function getUserOrder() {
             try {
-                const response = await axios.get(`http://localhost:5000/user/${user.email}`, {
+                const response = await axios.get(`https://quiet-tor-13369.herokuapp.com/user/${user.email}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('access_token')}`
                     }
@@ -55,7 +55,6 @@ const Orders = () => {
     }, [user])
     return (
         <div style={{ marginTop: "80px", minHeight: "600px" }}>
-            <h1 className="text-center">This is order page of {name || owenerName}</h1>
             <h2 className="text-center">You have {orderLength} orders</h2>
             <div className="w-100 row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 container-fluid mx-auto">
                 {

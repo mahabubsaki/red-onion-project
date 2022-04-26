@@ -38,6 +38,7 @@ const Header = ({ cart }) => {
     const handleSignout = () => {
         signOut(auth)
         navigate('/login')
+        localStorage.clear('access_token')
         localStorage.clear('cart')
         handleClearAll()
     }
