@@ -19,7 +19,11 @@ const Orders = () => {
     }, [allOrder])
     useEffect(() => {
         async function getUserOrder() {
-            const response = await axios.get(`http://localhost:5000/user/${user.email}`)
+            const response = await axios.get(`http://localhost:5000/user/${user.email}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
             return response
         }
         getUserOrder()

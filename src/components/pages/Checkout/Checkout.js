@@ -93,7 +93,7 @@ const Checkout = () => {
             .then(res => {
                 localStorage.clear('cart')
                 handleClearAll()
-                navigate('/orders')
+                navigate('/')
                 toast.success('Ordered Successfully', {
                     position: "top-center",
                     autoClose: 4000,
