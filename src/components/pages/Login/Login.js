@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -26,14 +27,16 @@ const Login = () => {
     }, [initUser, navigate])
     const [myError, setMyError] = useState('')
     useEffect(() => {
-        if (error) {
-            setMyError(error.message)
-        }
-        if (error1) {
-            setMyError(error1.message)
-        }
-        else {
-            setMyError('')
+        if (error || error1) {
+            if (error) {
+                setMyError(error.message)
+            }
+            else if (error1) {
+                setMyError(error1.message)
+            }
+            else {
+                setMyError('')
+            }
         }
     }, [error, error1])
     useEffect(() => {
@@ -52,11 +55,21 @@ const Login = () => {
     }, [myError])
     useEffect(() => {
         if (user || user1) {
+            if (user) {
+                const getAccessToken = async () => {
+                    const { data } = await axios.post('http://localhost:5000/login', user?.user?.email)
+                    console.log(data);
+                }
+                getAccessToken()
+            }
             if (user1) {
-                const { displayName, email } = user1.user
-                console.log(user1);
+                const getAccessToken = async () => {
+                    const { data } = await axios.post('http://localhost:5000/login', user1?.user?.email)
+                    console.log(data);
+                }
+                getAccessToken()
+                const { displayName, email } = user1?.user
                 const fullUser = { name: displayName, email: email, password: null }
-                console.log(fullUser);
                 fetch('http://localhost:5000/users', {
                     method: 'POST',
                     headers: {
@@ -97,6 +110,9 @@ const Login = () => {
         e.preventDefault();
         signInWithEmailAndPassword(email, password)
     }
+    const handleGoogleSignIn = async () => {
+        await signInWithGoogle()
+    }
     return (
         <div style={{ marginTop: "80px", height: "600px" }} className="d-flex justify-content-center align-items-center">
             <div className="w-50 mx-auto">
@@ -113,7 +129,7 @@ const Login = () => {
                     <hr style={{ width: '35%', border: '3px solid black' }} />
                 </div>
                 <p className="text-center">New User ? <Link to="/signup" className='text-decoration-none text-info'>Sign Up</Link> Now!</p>
-                <button className="d-block w-75 mx-auto btn btn-light border border-primary mb-2" onClick={() => signInWithGoogle()}>
+                <button className="d-block w-75 mx-auto btn btn-light border border-primary mb-2" onClick={handleGoogleSignIn}>
                     <FcGoogle></FcGoogle>
                     <span className='ms-2'>Continue With Google</span>
                 </button>
