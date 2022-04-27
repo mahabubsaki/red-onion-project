@@ -43,7 +43,7 @@ const SignUp = () => {
     const [name, setName] = useState('')
     const [confirm, setConfirm] = useState('')
     const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const fullUser = { name, email, password }
         if (password.length < 8) {
@@ -88,8 +88,8 @@ const SignUp = () => {
             });
             return
         })
-        createUserWithEmailAndPassword(email, password)
-        sendEmailVerification(email)
+        await createUserWithEmailAndPassword(email, password)
+        await sendEmailVerification(email)
     }
     useEffect(() => {
         if (error) {
