@@ -7,6 +7,7 @@ import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import './Login.css'
+import { signOut } from 'firebase/auth';
 const Login = () => {
     document.title = 'Login - Red Onion'
     const [email, setEmail] = useState('')
@@ -52,12 +53,27 @@ const Login = () => {
                 draggable: true,
                 progress: undefined,
             })
-            // alert(myError)
         }
     }, [myError])
     useEffect(() => {
         if (user || user1) {
             if (user) {
+                if (!(user?.user?.emailVerified)) {
+                    signOut(auth)
+                    toast.error('Please verify your email to log in', {
+                        position: "top-center",
+                        autoClose: 4000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    })
+                    setTimeout(() => {
+                        navigate('/login')
+                    }, 0)
+                    return
+                }
                 const getAccessToken = async () => {
                     const email = user?.user?.email
                     const { data } = await axios.post('http://localhost:5000/login', { email })
