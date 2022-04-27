@@ -9,13 +9,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { signOut } from 'firebase/auth';
 import { ApiContext } from '../../../App';
+import useFoods from '../../hooks/useFoods';
 
 const Header = ({ cart }) => {
     const navigate = useNavigate()
     const [user] = useAuthState(auth);
+    const [foods,] = useFoods()
     let testCart;
     if (cart.length === 0) {
-        const foods = JSON.parse(localStorage.getItem('allFoods'))
         const storedCart = []
         const localStorageObject = JSON.parse(localStorage.getItem('cart'))
         for (const id in localStorageObject) {
