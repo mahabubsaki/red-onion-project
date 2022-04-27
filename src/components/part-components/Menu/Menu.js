@@ -7,10 +7,10 @@ import './Menu.css'
 const Menu = () => {
     return (
         <div className="container" id="menu-container">
-            <div className="w-50 d-flex justify-content-between mx-auto">
-                <CustomLink to='/breakfast'>BreakFast</CustomLink>
-                <CustomLink to='/lunch'>Lunch</CustomLink>
-                <CustomLink to='/dinner'>Dinner</CustomLink>
+            <div className="w-75 d-flex justify-content-between mx-auto">
+                <CustomLink to='/breakfast' className="mx-2">BreakFast</CustomLink>
+                <CustomLink to='/lunch' className="mx-2">Lunch</CustomLink>
+                <CustomLink to='/dinner' className="mx-2">Dinner</CustomLink>
             </div>
             <Allmeal></Allmeal>
             <div className="my-3">
