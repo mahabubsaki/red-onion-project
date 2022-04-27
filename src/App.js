@@ -34,9 +34,8 @@ function App() {
     deleteItem(item)
     const storedCart = []
     const localStorageObject = JSON.parse(localStorage.getItem('cart'))
-    const allFoods = JSON.parse(localStorage.getItem('allFoods'))
     for (const id in localStorageObject) {
-      const findById = allFoods.find(food => food.id === id)
+      const findById = foods.find(food => food.id === id)
       if (findById) {
         findById.quantity = localStorageObject[id]
         storedCart.push(findById)

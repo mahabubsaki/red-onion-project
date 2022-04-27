@@ -3,13 +3,10 @@ import { useEffect, useState } from "react"
 const useFoods = () => {
     const [foods, setFoods] = useState([])
     useEffect(() => {
-        fetch('data.json')
+        fetch('http://localhost:5000/foods')
             .then(res => res.json())
             .then(data => setFoods(data))
     }, [])
-    if (foods.length > 0) {
-        localStorage.setItem('allFoods', JSON.stringify(foods))
-    }
     return [foods, setFoods]
 }
 export default useFoods

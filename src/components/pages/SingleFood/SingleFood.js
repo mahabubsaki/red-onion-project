@@ -1,33 +1,53 @@
 import { MinusIcon, PlusIcon, ShoppingCartIcon } from '@heroicons/react/solid';
-import React, { useContext, useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ApiContext } from '../../../App';
 import NotFound from '../NotFound/NotFound';
 import './SingleFood.css'
 
 const SingleFood = () => {
-    const { foods, handleAddtoCart } = useContext(ApiContext)
-    let loadingFood;
-    let tempArray;
+    const [loading, setLoading] = useState(false)
+    const { id } = useParams()
+    const { handleAddtoCart } = useContext(ApiContext)
+    const [food, setFood] = useState({})
+    useEffect(() => {
+        const getSingleFood = async () => {
+            setLoading(true)
+            const { data } = await axios.get(`http://localhost:5000/food?id=${id}`)
+            setFood(data)
+            setLoading(false)
+        }
+        getSingleFood()
+    }, [id])
+    document.title = `${food?.name} - Red Onion`
     const [quantity, setQuantity] = useState(1)
     const decrease = () => {
         if (quantity !== 1) {
             setQuantity(quantity - 1)
         }
     }
-    const { id } = useParams()
-    const food = foods.find(food => food.id === id)
-    if (food) {
-        loadingFood = food
-    }
-    else {
-        tempArray = JSON.parse(localStorage.getItem('allFoods'))
-        loadingFood = tempArray.find(f => f.id === id)
-    }
-    if (loadingFood === undefined) {
+    const { name, description, prices, img, category } = food
+    console.log(food.name)
+    const [notFound, setNotFound] = useState(false)
+    useEffect(() => {
+        if (!food.name) {
+            setNotFound(true)
+        }
+        else {
+            setNotFound(false)
+        }
+    }, [food, name])
+    if (notFound) {
         return <NotFound></NotFound>
     }
-    const { name, description, prices, img, category } = loadingFood
+    if (loading) {
+        return <div style={{ marginTop: "80px", height: "700px" }} className="d-flex justify-content-center align-items-center">
+            <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>;
+    }
     return (
         <div className="h-auto" style={{ marginTop: "80px" }}>
             <h1 className="text-center">Category : {category}</h1>
