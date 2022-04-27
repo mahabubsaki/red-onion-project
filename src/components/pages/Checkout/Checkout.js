@@ -14,7 +14,6 @@ const Checkout = () => {
     const [formOk, setFormOk] = useState(false)
     const [formInfo, setFormInfo] = useState({})
     const [user] = useAuthState(auth);
-    console.log(user)
     const { cart, handleClearAll } = useContext(ApiContext)
     let quantity = 0;
     let prices = 0;
@@ -59,7 +58,7 @@ const Checkout = () => {
     }
     const handlePlaceOrder = () => {
         const order = JSON.parse(localStorage.getItem('cart'))
-        if (!order || order === {}) {
+        if (!order || Object.keys(order).length === 0) {
             toast.error('Please add something to cart', {
                 position: "top-center",
                 autoClose: 4000,
