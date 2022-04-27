@@ -23,7 +23,7 @@ const Orders = () => {
     useEffect(() => {
         async function getUserOrder() {
             try {
-                const response = await axios.get(`https://quiet-tor-13369.herokuapp.com/user/${user.email}`, {
+                const response = await axios.get(`http://localhost:5000/user/${user.email}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('access_token')}`
                     }

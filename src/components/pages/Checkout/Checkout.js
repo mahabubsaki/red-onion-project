@@ -74,7 +74,7 @@ const Checkout = () => {
         const orderOverview = { order, formInfo }
         async function updateOrder() {
             try {
-                const response = await axios.post(`https://quiet-tor-13369.herokuapp.com/users?email=${user?.email}&reason=order`, orderOverview)
+                const response = await axios.post(`http://localhost:5000/users?email=${user?.email}&reason=order`, orderOverview)
                 return response
             }
             catch (err) {
