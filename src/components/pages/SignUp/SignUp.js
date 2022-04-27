@@ -4,13 +4,12 @@ import { FcGoogle } from 'react-icons/fc'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAuthState, useCreateUserWithEmailAndPassword, useSendEmailVerification, useSendPasswordResetEmail, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSendEmailVerification, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { signOut } from 'firebase/auth';
 const SignUp = () => {
     document.title = 'Signup - Red Onion'
     const [updateProfile, updating] = useUpdateProfile(auth);
-    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth)
     const [sendEmailVerification, sending1] = useSendEmailVerification(auth);
     const navigate = useNavigate()
     const [
@@ -156,7 +155,7 @@ const SignUp = () => {
             setMyError('')
         }
     }, [error])
-    if (loading || loading1 || updating) {
+    if (loading || loading1 || updating || sending1) {
         return <div style={{ marginTop: "80px", height: "700px" }} className="d-flex justify-content-center align-items-center">
             <div className="spinner-border" role="status">
                 <span className="visually-hidden">Loading...</span>
