@@ -169,7 +169,7 @@ const SignUp = () => {
     }
     return (
         <div style={{ marginTop: "80px", height: "700px" }} className="d-flex justify-content-center align-items-center">
-            <div className="w-50 mx-auto">
+            <div className="control-login-signup mx-auto">
                 <img src={logo} alt="" className="w-50 d-block mx-auto" style={{ height: "100px" }} />
                 <form onSubmit={handleSubmit}>
                     <h1 className="text-center my-3">Sign Up</h1>

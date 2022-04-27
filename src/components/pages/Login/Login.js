@@ -6,6 +6,7 @@ import auth from '../../../firebase.init';
 import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import './Login.css'
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -117,7 +118,7 @@ const Login = () => {
     }
     return (
         <div style={{ marginTop: "80px", height: "600px" }} className="d-flex justify-content-center align-items-center">
-            <div className="w-50 mx-auto">
+            <div className="control-login-signup mx-auto">
                 <img src={logo} alt="" className="w-50 d-block mx-auto" style={{ height: "100px" }} />
                 <form onSubmit={handleSubmit}>
                     <h1 className="text-center my-3">Login</h1>
