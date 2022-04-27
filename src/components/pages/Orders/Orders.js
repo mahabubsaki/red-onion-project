@@ -12,13 +12,11 @@ const Orders = () => {
     const navigate = useNavigate()
     const [user] = useAuthState(auth);
     const [owner, setOwner] = useState({})
-    const [owenerName, setOwnerName] = useState('')
     const [orderLength, setOrderLength] = useState(0)
     const { allOrder } = owner || {}
     useEffect(() => {
         if (allOrder) {
             setOrderLength(allOrder?.length)
-            setOwnerName(allOrder[0]?.formInfo.name || '')
         }
     }, [allOrder])
     useEffect(() => {
@@ -59,7 +57,7 @@ const Orders = () => {
             <h2 className="text-center">You have {orderLength} orders</h2>
             <div className="w-100 row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 container-fluid mx-auto">
                 {
-                    allOrder?.map(order => <EachOrder eachOrder={order} key={allOrder.indexOf(order) + 1} no={allOrder.indexOf(order) + 1} owenerName={owenerName}></EachOrder>)
+                    allOrder?.map(order => <EachOrder eachOrder={order} key={allOrder.indexOf(order) + 1} no={allOrder.indexOf(order) + 1} ></EachOrder>)
                 }
             </div>
             {!allOrder && <h1 className="text-center">No Order Placed</h1>}

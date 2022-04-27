@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './EachOrder.css'
 
-const EachOrder = ({ eachOrder, no, owenerName }) => {
+const EachOrder = ({ eachOrder, no }) => {
     const [totalOrder, setTotalOrder] = useState(0)
     const [time, setTime] = useState('')
     const [id, setId] = useState('')
@@ -30,7 +30,6 @@ const EachOrder = ({ eachOrder, no, owenerName }) => {
         <div className="col border border-dark mb-1 order py-2 rounded-3 card">
             <div className="text-center"><span className="px-4 py-2 bg-success rounded-circle">{no}</span></div>
             <h1 className="text-center">Order Id #{id}</h1>
-            <h3 className="text-center">{owenerName}</h3>
             <h3 className="text-center">Status : <span className="text-warning">Pending</span></h3>
             <h3 className="text-center">Ordered on {date} {time}</h3>
             <h3 className="text-center">Total Foods : {totalOrder}</h3>
@@ -39,7 +38,7 @@ const EachOrder = ({ eachOrder, no, owenerName }) => {
             <p>Floor : {floor}</p>
             <p>Area : {area}</p>
             <p>Mobile : {mobile}</p>
-            <button className='d-block mx-auto btn btn-primary'>See Details</button>
+            <button className='d-block mx-auto btn btn-danger'>Cancel Order</button>
         </div>
     );
 };
