@@ -8,8 +8,8 @@ const Cart = ({ cart }) => {
     const { handleClearAll } = useContext(ApiContext)
     return (
         <div className="bg-light px-2">
-            <h2 className="text-center">Cart Information</h2>
-            <div className="d-flex w-75 mx-auto justify-content-between">
+            <h2 className="text-center mb-3">Cart Information</h2>
+            <div className="d-flex w-100 mx-auto justify-content-between mb-3">
                 <button className="btn btn-success" onClick={() => navigate('/checkout')}>Proceed to Checkout</button>
                 <button className="btn btn-danger" onClick={handleClearAll}>Clear All</button>
             </div>
