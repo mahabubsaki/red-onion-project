@@ -9,11 +9,12 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
+    document.title = 'Checkout - Red Onion'
     const navigate = useNavigate()
     const [formOk, setFormOk] = useState(false)
     const [formInfo, setFormInfo] = useState({})
     const [user] = useAuthState(auth);
-    document.title = 'Checkout - Red Onion'
+    console.log(user)
     const { cart, handleClearAll } = useContext(ApiContext)
     let quantity = 0;
     let prices = 0;

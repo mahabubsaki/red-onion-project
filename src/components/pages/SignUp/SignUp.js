@@ -4,10 +4,11 @@ import { FcGoogle } from 'react-icons/fc'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { signOut } from 'firebase/auth';
 const SignUp = () => {
+    const [updateProfile, updating] = useUpdateProfile(auth);
     const navigate = useNavigate()
     const [
         createUserWithEmailAndPassword,
@@ -100,11 +101,16 @@ const SignUp = () => {
     }, [error, error1])
     useEffect(() => {
         if (user || user1) {
+            if (user) {
+                const setName = async () => {
+                    await updateProfile({ displayName: name })
+                }
+                setName()
+                console.log(user);
+            }
             if (user1) {
                 const { displayName, email } = user1.user
-                console.log(user1);
                 const fullUser = { name: displayName, email: email, password: null }
-                console.log(fullUser);
                 fetch('http://localhost:5000/users', {
                     method: 'POST',
                     headers: {
@@ -138,7 +144,7 @@ const SignUp = () => {
                 navigate('/login')
             }, 0)
         }
-    }, [user, user1, navigate])
+    }, [user, user1, navigate, name, updateProfile])
     useEffect(() => {
         if (error) {
             setMyError(error.message)
@@ -147,7 +153,7 @@ const SignUp = () => {
             setMyError('')
         }
     }, [error])
-    if (loading || loading1) {
+    if (loading || loading1 || updating) {
         return <div style={{ marginTop: "80px", height: "700px" }} className="d-flex justify-content-center align-items-center">
             <div className="spinner-border" role="status">
                 <span className="visually-hidden">Loading...</span>

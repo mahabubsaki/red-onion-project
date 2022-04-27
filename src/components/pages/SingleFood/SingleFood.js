@@ -28,7 +28,6 @@ const SingleFood = () => {
         }
     }
     const { name, description, prices, img, category } = food
-    console.log(food.name)
     const [notFound, setNotFound] = useState(false)
     useEffect(() => {
         if (!food.name) {
