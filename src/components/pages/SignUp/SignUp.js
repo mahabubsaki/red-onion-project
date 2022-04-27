@@ -8,6 +8,7 @@ import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle, u
 import auth from '../../../firebase.init';
 import { signOut } from 'firebase/auth';
 const SignUp = () => {
+    document.title = 'Signup - Red Onion'
     const [updateProfile, updating] = useUpdateProfile(auth);
     const navigate = useNavigate()
     const [

@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import './Login.css'
 const Login = () => {
+    document.title = 'Login - Red Onion'
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     let navigate = useNavigate();

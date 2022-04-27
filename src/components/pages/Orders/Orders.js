@@ -8,6 +8,7 @@ import auth from '../../../firebase.init';
 import EachOrder from '../../part-components/EachOrder/EachOrder';
 
 const Orders = () => {
+    document.title = 'Orders - Red Onion'
     const navigate = useNavigate()
     const [user] = useAuthState(auth);
     const [owner, setOwner] = useState({})
