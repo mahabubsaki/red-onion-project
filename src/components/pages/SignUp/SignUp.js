@@ -4,12 +4,14 @@ import { FcGoogle } from 'react-icons/fc'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSendEmailVerification, useSendPasswordResetEmail, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { signOut } from 'firebase/auth';
 const SignUp = () => {
     document.title = 'Signup - Red Onion'
     const [updateProfile, updating] = useUpdateProfile(auth);
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth)
+    const [sendEmailVerification, sending1] = useSendEmailVerification(auth);
     const navigate = useNavigate()
     const [
         createUserWithEmailAndPassword,
@@ -88,6 +90,7 @@ const SignUp = () => {
             return
         })
         createUserWithEmailAndPassword(email, password)
+        sendEmailVerification(email)
     }
     useEffect(() => {
         if (error) {
@@ -107,7 +110,6 @@ const SignUp = () => {
                     await updateProfile({ displayName: name })
                 }
                 setName()
-                console.log(user);
             }
             if (user1) {
                 const { displayName, email } = user1.user
@@ -132,7 +134,7 @@ const SignUp = () => {
                 })
             }
             signOut(auth)
-            toast.success('Signed Up Successfully,You can now Log in', {
+            toast.success('Signed Up Successfully,Please Verify Email to Login', {
                 position: "top-center",
                 autoClose: 4000,
                 hideProgressBar: false,
