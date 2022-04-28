@@ -86,7 +86,7 @@ const SignUp = () => {
             });
             return
         }
-        fetch('http://localhost:5000/users', {
+        fetch('https://quiet-tor-13369.herokuapp.com/users', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -129,7 +129,7 @@ const SignUp = () => {
             if (user1) {
                 const { displayName, email } = user1.user
                 const fullUser = { name: displayName, email: email, password: null }
-                fetch('http://localhost:5000/users', {
+                fetch('https://quiet-tor-13369.herokuapp.com/users', {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json"

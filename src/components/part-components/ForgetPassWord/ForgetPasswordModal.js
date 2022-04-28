@@ -10,7 +10,7 @@ const ForgetPasswordModal = (props) => {
     const [resetEmail, setResetEmail] = props.reset
     const sendResetMail = async () => {
         await sendPasswordResetEmail(resetEmail)
-        const { data } = await axios.post(`http://localhost:5000/user?email=${resetEmail}`)
+        const { data } = await axios.post(`https://quiet-tor-13369.herokuapp.com/user?email=${resetEmail}`)
         if (data.result === 'success') {
             toast.success('Sent password reset email successfully', {
                 position: "top-center",

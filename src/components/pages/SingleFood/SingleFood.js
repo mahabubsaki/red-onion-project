@@ -28,7 +28,7 @@ const SingleFood = () => {
     useEffect(() => {
         const getSingleFood = async () => {
             setLoading(true)
-            const { data } = await axios.get(`http://localhost:5000/food?id=${id}`)
+            const { data } = await axios.get(`https://quiet-tor-13369.herokuapp.com/food?id=${id}`)
             setFood(data)
             setLoading(false)
         }

@@ -17,7 +17,7 @@ const Orders = () => {
     const handleDeleteOrder = async (selectedOrder) => {
         const ask = window.confirm('Are you sure you want to cancel this order?')
         if (ask) {
-            const { data } = await axios.get(`http://localhost:5000/order?email=${user?.email}`)
+            const { data } = await axios.get(`https://quiet-tor-13369.herokuapp.com/order?email=${user?.email}`)
             const { allOrder, email, name, password } = data
             const filtered = await allOrder.filter(order => order?.formInfo?.orderId !== selectedOrder?.formInfo?.orderId)
             let currentUserInfo;
@@ -27,7 +27,7 @@ const Orders = () => {
             else {
                 currentUserInfo = { email, name, password }
             }
-            await axios.put(`http://localhost:5000/updateOrder?email=${user?.email}`, currentUserInfo)
+            await axios.put(`https://quiet-tor-13369.herokuapp.com/updateOrder?email=${user?.email}`, currentUserInfo)
             setOwner(currentUserInfo)
         }
     }
@@ -42,7 +42,7 @@ const Orders = () => {
     useEffect(() => {
         async function getUserOrder() {
             try {
-                const response = await axios.get(`http://localhost:5000/user/${user.email}`, {
+                const response = await axios.get(`https://quiet-tor-13369.herokuapp.com/user/${user.email}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('access_token')}`
                     }
