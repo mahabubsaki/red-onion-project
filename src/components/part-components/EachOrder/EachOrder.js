@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 import './EachOrder.css'
 
 const EachOrder = ({ eachOrder, no }) => {
+    const [user] = useAuthState(auth);
     const [totalOrder, setTotalOrder] = useState(0)
     const [time, setTime] = useState('')
     const [id, setId] = useState('')
@@ -31,6 +34,7 @@ const EachOrder = ({ eachOrder, no }) => {
             <div className="text-center"><span className="px-4 py-2 bg-success rounded-circle">{no}</span></div>
             <h1 className="text-center">Order Id #{id}</h1>
             <h3 className="text-center">Status : <span className="text-warning">Pending</span></h3>
+            <h3 className="text-center">Author : {user?.displayName}</h3>
             <h3 className="text-center">Ordered on {date} {time}</h3>
             <h3 className="text-center">Total Foods : {totalOrder}</h3>
             <h3 className="text-center">Total Cost : <span className="text-warning">${cost}</span></h3>
