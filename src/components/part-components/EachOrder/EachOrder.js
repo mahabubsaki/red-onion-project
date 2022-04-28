@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import './EachOrder.css'
 
-const EachOrder = ({ eachOrder, no }) => {
+const EachOrder = ({ eachOrder, no, handleDeleteOrder }) => {
     const [user] = useAuthState(auth);
     const [totalOrder, setTotalOrder] = useState(0)
     const [time, setTime] = useState('')
@@ -42,7 +42,7 @@ const EachOrder = ({ eachOrder, no }) => {
             <p>Floor : {floor}</p>
             <p>Area : {area}</p>
             <p>Mobile : {mobile}</p>
-            <button className='d-block mx-auto btn btn-danger'>Cancel Order</button>
+            <button className='d-block mx-auto btn btn-danger' onClick={handleDeleteOrder}>Cancel Order</button>
         </div>
     );
 };
