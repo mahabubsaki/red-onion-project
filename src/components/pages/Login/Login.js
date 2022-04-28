@@ -8,8 +8,10 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import './Login.css'
 import { signOut } from 'firebase/auth';
+import ForgetPasswordModal from '../../part-components/ForgetPasswordModal/ForgetPasswordModal';
 const Login = () => {
     document.title = 'Login - Red Onion'
+    const [modalShow, setModalShow] = useState(false);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     let navigate = useNavigate();
@@ -143,6 +145,9 @@ const Login = () => {
                     <input type="password" className="w-75 mx-auto d-block py-2 px-4 border-0 mb-2" placeholder="Password" style={{ backgroundColor: '#F5F5F5' }} required onChange={(e) => setPassword(e.target.value)} />
                     <button className="d-block mx-auto btn btn-primary" type="submit">Login</button>
                 </form>
+                <button className="btn btn-white d-block mx-auto text-center my-3" onClick={() => setModalShow(true)}>Forget Password?</button>
+                <ForgetPasswordModal show={modalShow}
+                    onHide={() => setModalShow(false)}></ForgetPasswordModal>
                 <div className="d-flex align-items-center justify-content-center">
                     <hr style={{ width: '35%', border: '3px solid black' }} />
                     <h5 className="mx-2" style={{ position: 'relative', top: '2.5px' }}>or</h5>
