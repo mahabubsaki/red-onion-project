@@ -27,12 +27,16 @@ const Orders = () => {
             else {
                 currentUserInfo = { email, name, password }
             }
-            const updateOrder = await axios.put(`http://localhost:5000/updateOrder?email=${user?.email}`, currentUserInfo)
+            await axios.put(`http://localhost:5000/updateOrder?email=${user?.email}`, currentUserInfo)
+            setOwner(currentUserInfo)
         }
     }
     useEffect(() => {
         if (allOrder) {
             setOrderLength(allOrder?.length)
+        }
+        else {
+            setOrderLength(0)
         }
     }, [allOrder])
     useEffect(() => {
