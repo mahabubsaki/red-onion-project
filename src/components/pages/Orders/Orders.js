@@ -14,8 +14,21 @@ const Orders = () => {
     const [owner, setOwner] = useState({})
     const [orderLength, setOrderLength] = useState(0)
     const { allOrder } = owner || {}
-    const handleDeleteOrder = async () => {
+    const handleDeleteOrder = async (selectedOrder) => {
         const ask = window.confirm('Are you sure you want to cancel this order?')
+        if (ask) {
+            const { data } = await axios.get(`http://localhost:5000/order?email=${user?.email}`)
+            const { allOrder, email, name, password } = data
+            const filtered = await allOrder.filter(order => order?.formInfo?.orderId !== selectedOrder?.formInfo?.orderId)
+            let currentUserInfo;
+            if (filtered.length > 0) {
+                currentUserInfo = { email, name, password, allOrder: filtered }
+            }
+            else {
+                currentUserInfo = { email, name, password }
+            }
+            const updateOrder = await axios.put(`http://localhost:5000/updateOrder?email=${user?.email}`, currentUserInfo)
+        }
     }
     useEffect(() => {
         if (allOrder) {

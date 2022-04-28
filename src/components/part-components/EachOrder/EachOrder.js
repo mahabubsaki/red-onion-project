@@ -42,7 +42,7 @@ const EachOrder = ({ eachOrder, no, handleDeleteOrder }) => {
             <p>Floor : {floor}</p>
             <p>Area : {area}</p>
             <p>Mobile : {mobile}</p>
-            <button className='d-block mx-auto btn btn-danger' onClick={handleDeleteOrder}>Cancel Order</button>
+            <button className='d-block mx-auto btn btn-danger' onClick={() => handleDeleteOrder(eachOrder)}>Cancel Order</button>
         </div>
     );
 };
