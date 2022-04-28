@@ -51,7 +51,7 @@ const Orders = () => {
                     progress: undefined,
                 })
             })
-    }, [user])
+    }, [user, navigate])
     return (
         <div style={{ marginTop: "80px", minHeight: "600px" }}>
             <h2 className="text-center">You have {orderLength} orders</h2>
