@@ -27,15 +27,28 @@ const SignUp = () => {
     const [myError, setMyError] = useState('')
     useEffect(() => {
         if (myError) {
-            toast.error(myError, {
-                position: "top-center",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
+            if (myError.includes('auth/email-already-in-use')) {
+                toast.error('User with given email already exists', {
+                    position: "top-center",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            }
+            else {
+                toast.error('Something went wrong, Please try again', {
+                    position: "top-center",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            }
         }
     }, [myError])
     const [email, setEmail] = useState('')
