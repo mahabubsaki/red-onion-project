@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 
 const ForgetPasswordModal = (props) => {
+    const [resetEmail, setResetEmail] = props.reset
     return (
         <Modal
             {...props}
@@ -11,16 +12,18 @@ const ForgetPasswordModal = (props) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Modal heading
+                    Reset Your Password
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <h4>Centered Modal</h4>
-                <p>
-                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                    consectetur ac, vestibulum at eros.
-                </p>
+            <Modal.Body className="mx-auto w-75">
+                <Form.Label htmlFor="inputPassword5">Email</Form.Label>
+                <Form.Control
+                    type="password"
+                    id="inputPassword5"
+                    aria-describedby="passwordHelpBlock"
+                    onChange={(e) => setResetEmail(e.target.value)}
+                />
+                <Button variant="primary" className="my-3 d-block mx-auto" disabled={!resetEmail}>Reset</Button>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>

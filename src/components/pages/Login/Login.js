@@ -114,6 +114,12 @@ const Login = () => {
             navigate(from, { replace: true });
         }
     }, [user, user1, navigate, from])
+    const [resetEmail, setResetEmail] = useState('')
+    useEffect(() => {
+        if (!modalShow) {
+            setResetEmail('')
+        }
+    }, [modalShow])
     if (loading || loading1) {
         return <div style={{ marginTop: "80px", height: "700px" }} className="d-flex justify-content-center align-items-center">
             <div className="spinner-border" role="status">
@@ -146,7 +152,7 @@ const Login = () => {
                     <button className="d-block mx-auto btn btn-primary" type="submit">Login</button>
                 </form>
                 <button className="btn btn-white d-block mx-auto text-center my-3" onClick={() => setModalShow(true)}>Forget Password?</button>
-                <ForgetPasswordModal show={modalShow}
+                <ForgetPasswordModal show={modalShow} reset={[resetEmail, setResetEmail]}
                     onHide={() => setModalShow(false)}></ForgetPasswordModal>
                 <div className="d-flex align-items-center justify-content-center">
                     <hr style={{ width: '35%', border: '3px solid black' }} />
