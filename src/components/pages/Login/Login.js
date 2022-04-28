@@ -46,15 +46,42 @@ const Login = () => {
     }, [error, error1])
     useEffect(() => {
         if (myError) {
-            toast.error(myError, {
-                position: "top-center",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
+            if (myError.includes('auth/user-not-found')) {
+                toast.error('User not found with given email', {
+                    position: "top-center",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            }
+            else if (myError.includes('auth/wrong-password')) {
+                toast.error('Wrong password', {
+                    position: "top-center",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            }
+            else {
+                toast.error('Something went wrong please try again', {
+                    position: "top-center",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            }
+            setTimeout(() => {
+                setMyError('')
+            }, 0)
         }
     }, [myError])
     useEffect(() => {

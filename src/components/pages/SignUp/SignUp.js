@@ -49,6 +49,9 @@ const SignUp = () => {
                     progress: undefined,
                 })
             }
+            setTimeout(() => {
+                setMyError('')
+            }, 0)
         }
     }, [myError])
     const [email, setEmail] = useState('')
