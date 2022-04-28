@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import './Login.css'
 import { signOut } from 'firebase/auth';
-import ForgetPasswordModal from '../../part-components/ForgetPasswordModal/ForgetPasswordModal';
+import ForgetPasswordModal from '../../part-components/ForgetPassWord/ForgetPasswordModal';
 const Login = () => {
     document.title = 'Login - Red Onion'
     const [modalShow, setModalShow] = useState(false);
