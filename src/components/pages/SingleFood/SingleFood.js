@@ -8,7 +8,8 @@ import NotFound from '../NotFound/NotFound';
 import './SingleFood.css'
 
 const SingleFood = () => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const [notFound, setNotFound] = useState(false)
     const { id } = useParams()
     const { handleAddtoCart } = useContext(ApiContext)
     const handleCartAdding = () => {
@@ -24,33 +25,36 @@ const SingleFood = () => {
             progress: undefined,
         })
     }
-    const [food, setFood] = useState({})
+    const [food, setFood] = useState(null)
     useEffect(() => {
         const getSingleFood = async () => {
-            setLoading(true)
             const { data } = await axios.get(`https://quiet-tor-13369.herokuapp.com/food?id=${id}`)
-            setFood(data)
-            setLoading(false)
+            if (Object.keys(data).length > 0) {
+                setLoading(false)
+                setFood(data)
+            }
+            else {
+                setLoading(false)
+                setNotFound(true)
+            }
         }
         getSingleFood()
     }, [id])
-    document.title = `${food?.name} - Red Onion`
+    useEffect(() => {
+        if (food) {
+            document.title = `${food.name} - Red Onion`
+        }
+        else {
+            document.title = `Red Onion`
+        }
+    }, [food])
     const [quantity, setQuantity] = useState(1)
     const decrease = () => {
         if (quantity !== 1) {
             setQuantity(quantity - 1)
         }
     }
-    const { name, description, prices, img, category } = food
-    const [notFound, setNotFound] = useState(false)
-    useEffect(() => {
-        if (!food.name) {
-            setNotFound(true)
-        }
-        else {
-            setNotFound(false)
-        }
-    }, [food, name])
+    const { name, description, prices, img, category } = food || {}
     if (notFound) {
         return <NotFound></NotFound>
     }
